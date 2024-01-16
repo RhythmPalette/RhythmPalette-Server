@@ -1,5 +1,6 @@
 package com.umc.Palette.domain.follow.domain;
 
+import com.umc.Palette.domain.base_time.BaseTimeEntity;
 import com.umc.Palette.domain.user.domain.User;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -8,7 +9,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.sql.Timestamp;
 
 @Entity
-public class Follow {
+public class Follow extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "follow_id")
@@ -22,15 +23,6 @@ public class Follow {
     @JoinColumn(name = "following_id")
     private User followingId;
 
-
-    //
-    @Column(name = "created_at")
-    @CreationTimestamp
-    private Timestamp createdAt;
-
-    @Column(name = "update_at")
-    @UpdateTimestamp
-    private Timestamp updateAt;
 
     public Follow(){}
 

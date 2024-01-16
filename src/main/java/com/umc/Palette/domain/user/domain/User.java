@@ -1,17 +1,15 @@
 package com.umc.Palette.domain.user.domain;
 
+import com.umc.Palette.domain.base_time.BaseTimeEntity;
 import com.umc.Palette.domain.follow.domain.Follow;
 import com.umc.Palette.domain.preference_genre.domain.PreferenceGenre;
 import jakarta.persistence.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class User {
+public class User extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
@@ -53,10 +51,10 @@ public class User {
 //    @JoinColumn(name = "music_id")
 //    private Music musicId;
 //
-//    @OneToMany(mappedBy = "user_id")
+//    @OneToMany(mappedBy = "user")
 //    private List<UserCommentLike> userCommentLikeList = new ArrayList<>();
 //
-//    @OneToMany(mappedBy = "user_id")
+//    @OneToMany(mappedBy = "user")
 //    private List<Comment> commentList = new ArrayList<>();
 //
 //    @OneToMany(mappedBy = "user_id")
@@ -69,13 +67,6 @@ public class User {
 //    private List<CopyOfComment> copyOfCommentList = new ArrayList<>();
 
 
-    @Column(name = "created_at")
-    @CreationTimestamp
-    private Timestamp createdAt;
-
-    @Column(name = "update_at")
-    @UpdateTimestamp
-    private Timestamp updateAt;
 
     public User(){}
 
