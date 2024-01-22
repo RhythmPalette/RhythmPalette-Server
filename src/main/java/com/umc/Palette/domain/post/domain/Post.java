@@ -1,6 +1,7 @@
 package com.umc.Palette.domain.post.domain;
 
 import com.umc.Palette.domain.music.domain.Music;
+import com.umc.Palette.domain.music.domain.Playlist;
 import com.umc.Palette.domain.user.domain.User;
 import jakarta.persistence.*;
 
@@ -33,4 +34,7 @@ public class Post {
 //    @JoinColumn(name = "situation_id")
 //    private Situation situation;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "playlist_id")
+    private Playlist playlist;
 }
