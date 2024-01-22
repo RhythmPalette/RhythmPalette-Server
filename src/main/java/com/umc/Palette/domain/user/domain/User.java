@@ -1,7 +1,12 @@
 package com.umc.Palette.domain.user.domain;
 
 import com.umc.Palette.domain.base_time.BaseTimeEntity;
+import com.umc.Palette.domain.comment.domain.Comment;
+import com.umc.Palette.domain.comment.domain.UserCommentLike;
 import com.umc.Palette.domain.follow.domain.Follow;
+import com.umc.Palette.domain.music.domain.Music;
+import com.umc.Palette.domain.post.domain.Post;
+import com.umc.Palette.domain.post.domain.PostLike;
 import com.umc.Palette.domain.preference_genre.domain.PreferenceGenre;
 import jakarta.persistence.*;
 import java.time.LocalDate;
@@ -47,22 +52,22 @@ public class User extends BaseTimeEntity {
     @OneToMany(mappedBy = "user_id")
     private List<PreferenceGenre> preferenceGenreList= new ArrayList<>();
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "music_id")
-//    private Music musicId;
-//
-//    @OneToMany(mappedBy = "user")
-//    private List<UserCommentLike> userCommentLikeList = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "user")
-//    private List<Comment> commentList = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "user_id")
-//    private List<UserPostLike> userPostLikeList = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "user_id")
-//    private List<Post> postList = new ArrayList<>();
-//
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "music_id")
+    private Music musicId;
+
+    @OneToMany(mappedBy = "user")
+    private List<UserCommentLike> userCommentLikeList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Comment> commentList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user_id")
+    private List<PostLike> postLikeList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user_id")
+    private List<Post> postList = new ArrayList<>();
+
 //    @OneToMany(mappedBy = "user_id")
 //    private List<CopyOfComment> copyOfCommentList = new ArrayList<>();
 
