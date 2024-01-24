@@ -1,5 +1,6 @@
 package com.umc.Palette.domain.post.domain;
 
+import com.umc.Palette.domain.user.domain.User;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,9 +11,9 @@ public class PostLike {
     @Column(name = "user_post_like_id")
     private Long postLikeId;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_id")
-//    private User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
