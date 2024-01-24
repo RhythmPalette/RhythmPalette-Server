@@ -47,24 +47,7 @@ public class User extends BaseTimeEntity {
     @OneToMany(mappedBy = "user_id")
     private List<PreferenceGenre> preferenceGenreList= new ArrayList<>();
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "music_id")
-//    private Music musicId;
-//
-//    @OneToMany(mappedBy = "user")
-//    private List<UserCommentLike> userCommentLikeList = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "user")
-//    private List<Comment> commentList = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "user_id")
-//    private List<UserPostLike> userPostLikeList = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "user_id")
-//    private List<Post> postList = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "user_id")
-//    private List<CopyOfComment> copyOfCommentList = new ArrayList<>();
+
 
 
 
