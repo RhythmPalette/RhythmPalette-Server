@@ -19,4 +19,7 @@ public class Music {
 
     @Column(name = "artist", nullable = false)
     private String artist;
+
+    @Column(name = "image_url", nullable = true)
+    private String imageUrl;
 }

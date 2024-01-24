@@ -1,4 +1,4 @@
-package com.umc.Palette.domain.comment.domain;
+package com.umc.Palette.domain.music.domain;
 
 import com.umc.Palette.domain.user.domain.User;
 import jakarta.persistence.*;
@@ -6,22 +6,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "user_comment_likes")
+@Table(name = "playlists")
 @Getter
 @NoArgsConstructor
-public class UserCommentLike {
-
+public class Playlist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_comment_like_id")
+    @Column(name = "playlist_id")
     private Long id;
 
+    @Column(name = "name", nullable = false)
+    private String name;
 
-    @Column(name = "user_id")
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
-
-    @Column(name = "comment_id")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Comment comment;
 }
