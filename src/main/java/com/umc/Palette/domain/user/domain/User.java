@@ -68,11 +68,7 @@ public class User extends BaseTimeEntity {
     @OneToMany(mappedBy = "user_id")
     private List<Post> postList = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "user_id")
-//    private List<CopyOfComment> copyOfCommentList = new ArrayList<>();
-
-
-
+    
     public User(){}
 
 }
