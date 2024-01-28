@@ -17,6 +17,7 @@ public class CommentRequestDTO {
         private Post postId;
         private String comment;
         private LocalDateTime createdAt;
+        private LocalDateTime updatedAt;
     }
 
 
