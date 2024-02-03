@@ -46,20 +46,20 @@ public class CommentServiceImpl implements CommentService{
         return commentDto;
     }
 
-//    @Override
-//    public CommentDto updateComment(Long commentId, CommentRequestDTO.CreateDTO request) {
-//        Comment existingComment = commentRepository.findById(commentId)
-//                .orElseThrow(() -> new RuntimeException("Comment not found"));
-//        Comment updatedComment = CommentConverter.toCommentWithId(commentId, request);
-//
-//
-//        Comment savedComment = commentRepository.save(updatedComment);
-//        return CommentConverter.toCommentDto(savedComment);
-//    }
+    @Override
+    public CommentDto updateComment(Long commentId, CommentRequestDTO.CreateDTO request) {
+        Comment updateComment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new RuntimeException("Comment not found"));
+        updateComment.setContent(request.getComment());
 
-//    @Override
-//    public boolean deleteComment(Long commentId) {
-//        commentRepository.deleteById(commentId);
-//        return true;
-//    }
+        Comment savedComment = commentRepository.save(updateComment);
+        CommentDto commentDto = CommentConverter.toCommentDto(savedComment);
+        return commentDto;
+    }
+
+    @Override
+    public boolean deleteComment(Long commentId) {
+        commentRepository.deleteById(commentId);
+        return true;
+    }
 }

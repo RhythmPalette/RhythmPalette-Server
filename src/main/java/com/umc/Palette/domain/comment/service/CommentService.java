@@ -12,8 +12,8 @@ public interface CommentService {
 
     public CommentDto createComment(CommentRequestDTO.CreateDTO request);
 
-//    public CommentDto updateComment(Long commentId, CommentRequestDTO.CreateDTO request);
-//
-//    public boolean deleteComment(Long commentId);
+    public CommentDto updateComment(Long commentId, CommentRequestDTO.CreateDTO request);
+
+    public boolean deleteComment(Long commentId);
 
 }

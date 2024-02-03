@@ -40,17 +40,27 @@ public class CommentRestController {
                 .build();
     }
 
-//    @PatchMapping("/{commentId}")
-//    public ResponseEntity<CommentDto> patchComment(@PathVariable(name = "commentId") Long commentId, @RequestBody @Validated CommentRequestDTO.CreateDTO request) {
-//        CommentDto updatedComment = commentService.updateComment(commentId, request);
-//        return ResponseEntity.ok(updatedComment);
-//    }
-//
-//    @DeleteMapping("/{commentId}")
-//    public ResponseEntity<Boolean> deleteComment(@PathVariable(name = "commentId") Long commentId) {
-//        boolean isDeleted = commentService.deleteComment(commentId);
-//        return ResponseEntity.ok(isDeleted);
-//    }
+    @PatchMapping("/{commentId}")
+    public BaseResponse<CommentDto> patchComment(@PathVariable(name = "commentId") Long commentId, @RequestBody CommentRequestDTO.CreateDTO request) {
+        CommentDto updatedComment = commentService.updateComment(commentId, request);
+        return BaseResponse.<CommentDto>builder()
+                .data(updatedComment)
+                .code(200)
+                .isSuccess(true)
+                .message("게시글이 수정되었습니다.")
+                .build();
+    }
+
+    @DeleteMapping("/{commentId}")
+    public BaseResponse<Boolean> deleteComment(@PathVariable(name = "commentId") Long commentId) {
+        boolean isDeleted = commentService.deleteComment(commentId);
+        return BaseResponse.<Boolean>builder()
+                .data(isDeleted)
+                .code(200)
+                .isSuccess(true)
+                .message("게시글이 삭제되었습니다.")
+                .build();
+    }
 //
 //    @GetMapping("/{commentId}/liked-people")
 //    public void getCommentLike(){

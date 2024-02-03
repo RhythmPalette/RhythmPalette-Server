@@ -19,12 +19,17 @@ public class CommentConverter {
                 .likes(new ArrayList<>())
                 .build();
     }
-
+    //테스트용
     public static Comment toComment(CommentRequestDTO.CreateDTO createDTO){
         return Comment.builder()
                 .content(createDTO.getComment())
                 .likes(new ArrayList<>())
                 .build();
+    }
+
+
+    public static Comment toCommentWithId(Long commentId, CommentRequestDTO.CreateDTO createDTO){
+        return Comment.builder().build();
     }
 
 
