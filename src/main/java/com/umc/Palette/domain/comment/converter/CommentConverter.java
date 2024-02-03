@@ -20,17 +20,13 @@ public class CommentConverter {
                 .build();
     }
 
-//    public static Comment toComment(Long commentID, CommentRequestDTO.CreateDTO createDTO){
-//        //id 어떻게할건지
-//        return Comment.builder()
-//                .id(commentID)
-//                .content(createDTO.getComment())
-//                .user(createDTO.getUserId())
-//                .post(createDTO.getPostId())
-//                .createdAt(createDTO.getCreatedAt())
-//                .updatedAt(null).build();
-//    }
-//
+    public static Comment toComment(CommentRequestDTO.CreateDTO createDTO){
+        return Comment.builder()
+                .content(createDTO.getComment())
+                .likes(new ArrayList<>())
+                .build();
+    }
+
 
 
     public static CommentDto toCommentDto(Comment comment){

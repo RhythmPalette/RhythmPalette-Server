@@ -5,6 +5,7 @@ import com.umc.Palette.domain.comment.dto.CommentRequestDTO;
 import com.umc.Palette.domain.comment.service.CommentService;
 import com.umc.Palette.global.exception.BaseResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -12,9 +13,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 @RequiredArgsConstructor
-@Validated
+@Slf4j
 @RequestMapping("/posts/{postId}/comments")
 public class CommentRestController {
 
@@ -29,6 +31,7 @@ public class CommentRestController {
     @PostMapping
     public BaseResponse<CommentDto> postComment(@RequestBody  CommentRequestDTO.CreateDTO request) {
         CommentDto createdComment = commentService.createComment(request);
+        log.info("컨트롤러 return 확인");
         return BaseResponse.<CommentDto>builder()
                 .data(createdComment)
                 .code(200)

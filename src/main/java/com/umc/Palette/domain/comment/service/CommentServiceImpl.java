@@ -36,25 +36,13 @@ public class CommentServiceImpl implements CommentService{
     @Override
     @Transactional
     public CommentDto createComment(CommentRequestDTO.CreateDTO request) {
-        User user = new User();
-        Post post = new Post();
-        Comment newComment = CommentConverter.toComment(request, user, post);
-        Comment savedComment = commentRepository.save(newComment);
-        log.info(savedComment.getId()+"");
-        log.info(savedComment.getContent());
-        log.info(savedComment.getUser()+"");
-        log.info(savedComment.getLikes()+"");
-        log.info(savedComment.getPost()+"");
-        log.info(savedComment.getCreatedAt()+"");
-        log.info(savedComment.getUpdateAt()+"");
-        log.info("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
+//        User user = new User();
+//        Post post = new Post();
+//        Comment newComment = CommentConverter.toComment(request, user, post);
+        Comment newComment = CommentConverter.toComment(request);
 
+        Comment savedComment = commentRepository.save(newComment);
         CommentDto commentDto = CommentConverter.toCommentDto(savedComment);
-        log.info(commentDto.getId()+"");
-        log.info(commentDto.getContent());
-        log.info(commentDto.getLikeCount()+"");
-        log.info(commentDto.getCreatedAt()+"");
-        log.info(commentDto.getUpdatedAt()+"");
         return commentDto;
     }
 
