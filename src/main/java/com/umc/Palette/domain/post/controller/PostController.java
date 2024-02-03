@@ -6,10 +6,7 @@ import com.umc.Palette.domain.post.service.PostService;
 import com.umc.Palette.global.exception.BaseResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,6 +22,16 @@ public class PostController {
                 .code(200)
                 .isSuccess(true)
                 .message("게시글이 작성되었습니다.")
+                .build();
+    }
+
+    @DeleteMapping("/{postId}")
+    public BaseResponse<Object> deletePost(@PathVariable(name = "postId") Long postId){
+        postService.deletePost(postId);
+        return BaseResponse.builder()
+                .code(200)
+                .isSuccess(true)
+                .message("게시글이 삭제되었습니다.")
                 .build();
     }
 }

@@ -1,5 +1,6 @@
 package com.umc.Palette.domain.post.service;
 import com.umc.Palette.domain.emotion.domain.Emotion;
+import com.umc.Palette.domain.post.domain.Post;
 import com.umc.Palette.domain.user.domain.User;
 import com.umc.Palette.domain.music.domain.Music;
 import com.umc.Palette.domain.music.repository.MusicRepository;
@@ -28,5 +29,9 @@ public class PostService {
 //        Music music = musicRepository.findById(addDTO.getMusicId()).orElseThrow(
 //                ()->new CustomExceptionHandler(ENTITY_NOT_FOUND));
         postRepository.save(addDTO.toEntity(/*user, music, emotion*/));
+    }
+
+    public void deletePost(Long postId){
+        postRepository.deleteById(postId);
     }
 }
