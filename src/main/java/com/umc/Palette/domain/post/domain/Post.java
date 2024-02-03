@@ -1,9 +1,12 @@
 package com.umc.Palette.domain.post.domain;
 
+import com.umc.Palette.domain.comment.domain.Comment;
 import com.umc.Palette.domain.music.domain.Music;
 import com.umc.Palette.domain.music.domain.Playlist;
 import com.umc.Palette.domain.user.domain.User;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "post")
@@ -33,6 +36,10 @@ public class Post {
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "situation_id")
 //    private Situation situation;
+
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comments;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "playlist_id")

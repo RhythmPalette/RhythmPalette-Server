@@ -1,6 +1,7 @@
 package com.umc.Palette.domain.comment.domain;
 
 
+import com.umc.Palette.domain.base_time.BaseTimeEntity;
 import com.umc.Palette.domain.post.domain.Post;
 import com.umc.Palette.domain.user.domain.User;
 import jakarta.persistence.*;
@@ -20,7 +21,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class Comment {
+public class Comment extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,13 +40,6 @@ public class Comment {
     @ManyToOne(fetch = FetchType.LAZY)
     private Post post;
 
-    @Column(name = "created_at")
-    @CreatedDate
-    private LocalDateTime createdAt;
-
-    @Column(name = "updated_at")
-    @LastModifiedDate
-    private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
     private List<UserCommentLike> likes = new ArrayList<>();
