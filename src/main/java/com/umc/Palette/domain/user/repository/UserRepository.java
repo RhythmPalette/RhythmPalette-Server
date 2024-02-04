@@ -9,6 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+  
     Boolean existsByLoginId(String loginId);
     Optional<User> findByLoginId(String loginId); // jwt에서 사용
 
