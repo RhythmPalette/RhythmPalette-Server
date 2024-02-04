@@ -12,30 +12,30 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @EnableJpaAuditing
 @SpringBootApplication
-public class PaletteApplication implements CommandLineRunner {
+public class PaletteApplication {
 
-	@Autowired
-	private UserRepository userRepository;
+//	@Autowired
+//	private UserRepository userRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(PaletteApplication.class, args);
 	}
 
 
-	public void run(String... args) {
-		User adminAccount = userRepository.findByRole(Role.ROLE_ADMIN);
-		if (null == adminAccount) {
-			User user = new User();
-
-			user.setEmail("admin@gmail.com");
-			user.setName("admin");
-			user.setNickname("admin");
-			user.setLoginId("ad");
-			user.setRole(Role.ROLE_ADMIN);
-			user.setPassword(new BCryptPasswordEncoder().encode("admin"));
-			user.setIntroduction("I am admin");
-			userRepository.save(user);
-		}
-	}
+//	public void run(String... args) {
+//		User adminAccount = userRepository.findByRole(Role.ROLE_ADMIN);
+//		if (null == adminAccount) {
+//			User user = new User();
+//
+//			user.setEmail("admin@gmail.com");
+//			user.setName("admin");
+//			user.setNickname("admin");
+//			user.setLoginId("ad");
+//			user.setRole(Role.ROLE_ADMIN);
+//			user.setPassword(new BCryptPasswordEncoder().encode("admin"));
+//			user.setIntroduction("I am admin");
+//			userRepository.save(user);
+//		}
+//	}
 
 }
