@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,16 +23,12 @@ public class CommentServiceImpl implements CommentService{
 
     private final CommentRepository commentRepository;
 
-//    @Override
-//    public List<CommentDto> getComments(Long postId) {
+    @Override
+    public List<CommentDto> getComments(Long postId) {
 //        List<Comment> comments = commentRepository.findByPostId(postId);
-//
-//        return comments.stream()
-//                .map(CommentConverter::toCommentDto)
-//                .collect(Collectors.toList());
-//
-//
-//    }
+
+        return new ArrayList<>();
+    }
 
     @Override
     @Transactional

@@ -22,11 +22,16 @@ public class CommentRestController {
 
     private final CommentService commentService;
 
-//    @GetMapping
-//    public ResponseEntity<List<CommentDto>> getComment(@PathVariable(name = "postId") Long postId) {
-//        List<CommentDto> comments = commentService.getComments(postId);
-//        return ResponseEntity.ok(comments);
-//    }
+    @GetMapping
+    public BaseResponse<List<CommentDto>> getComment(@PathVariable(name = "postId") Long postId) {
+        List<CommentDto> comments = commentService.getComments(postId);
+        return   BaseResponse.<List<CommentDto>>builder()
+                .data(comments)
+                .code(200)
+                .isSuccess(true)
+                .message("게시글 댓글 반환.")
+                .build();
+    }
 
     @PostMapping
     public BaseResponse<CommentDto> postComment(@RequestBody  CommentRequestDTO.CreateDTO request) {
@@ -61,21 +66,7 @@ public class CommentRestController {
                 .message("게시글이 삭제되었습니다.")
                 .build();
     }
-//
-//    @GetMapping("/{commentId}/liked-people")
-//    public void getCommentLike(){
-//
-//    }
-//
-//    @PostMapping("/{commentId}/likes")
-//    public void postCommentLike(){
-//
-//    }
-//
-//    @DeleteMapping("/{commentId}/likes")
-//    public void deleteCommentLike(){
-//
-//    }
+
 
 
 }
