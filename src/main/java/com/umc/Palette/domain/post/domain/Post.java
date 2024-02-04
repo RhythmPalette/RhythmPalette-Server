@@ -1,5 +1,6 @@
 package com.umc.Palette.domain.post.domain;
 
+import com.umc.Palette.domain.comment.domain.Comment;
 import com.umc.Palette.domain.base_time.BaseTimeEntity;
 import com.umc.Palette.domain.emotion.domain.Emotion;
 import com.umc.Palette.domain.music.domain.Music;
@@ -10,6 +11,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Builder
@@ -42,6 +45,10 @@ public class Post extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "situation_id")
     private Situation situation;
+
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comments;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "playlist_id")
