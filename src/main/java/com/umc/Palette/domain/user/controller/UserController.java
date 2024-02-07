@@ -14,7 +14,11 @@ public class UserController {
 
     @GetMapping("/{userName}")
     public BaseResponse<Object> hi(@PathVariable(name = "userName") String userName) {
-        return new BaseResponse<>(true, "안녕하세요", 2005, userName);
+        return BaseResponse.<Object>builder()
+                .code(2005)
+                .isSuccess(true)
+                .message(userName+"안녕하세요")
+                .build();
     }
 
 }

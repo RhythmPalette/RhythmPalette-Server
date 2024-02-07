@@ -30,7 +30,6 @@ public class EmailServiceImpl implements EmailService {
         System.out.println("보내는 대상 : "+ to);
         System.out.println("인증 번호 : "+ePw);
         MimeMessage  message = emailSender.createMimeMessage();
-        System.out.println("1");
         ((MimeMessage) message).addRecipients(MimeMessage.RecipientType.TO, to);//보내는 대상
         message.setSubject("이메일 인증 테스트");//제목
 
@@ -51,7 +50,6 @@ public class EmailServiceImpl implements EmailService {
         message.setText(msgg, "utf-8", "html");//내용
         message.setFrom(new InternetAddress("rhythmpal0219@gmail.com","hyun"));//보내는 사람
 
-        System.out.println("2");
         return message;
     }
 
@@ -84,14 +82,11 @@ public class EmailServiceImpl implements EmailService {
         // TODO Auto-generated method stub
         MimeMessage message = createMessage(to);
         try{//예외처리
-            System.out.println("3");
             emailSender.send(message);
-            System.out.println("4");
         }catch(MailException es){
             es.printStackTrace();
             throw new IllegalArgumentException();
         }
-        System.out.println("5");
         return ePw;
     }
 }
