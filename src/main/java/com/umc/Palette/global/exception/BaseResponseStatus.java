@@ -22,17 +22,6 @@ public enum BaseResponseStatus {
     ENTITY_NOT_FOUND(false, 2002,"entity not found"),
     USER_NOT_FOUND(false, 2003, "해당하는 유저 정보가 없습니다."),
     EMPTY_TOKEN(false, 2004, "토큰을 확인해주세요."),
-    /**
-     * Post
-     * Code  : 3000
-     */
-    POST_NOT_FOUND(false, 3000, "해당 게시물이 존재하지 않습니다."),
-    /**
-     * Playlist
-     * Code : 4000
-     */
-    PLAYLIST_NOT_FOUND(false, 4000, "해당 플레이리스트가 존재하지 않습니다."),
-    POST_IS_NOT_ON_PLAYLIST(false, 4001, "해당 Post는 해당 Playlist에 담겨 있지 않습니다.")
     ;
 
     // -------- 실패 코드 종료 -------- //
