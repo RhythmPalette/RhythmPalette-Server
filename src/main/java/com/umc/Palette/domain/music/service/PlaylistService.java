@@ -2,9 +2,14 @@ package com.umc.Palette.domain.music.service;
 
 import com.umc.Palette.domain.music.domain.Playlist;
 import com.umc.Palette.domain.music.dto.request.PlaylistCreateRequest;
+import com.umc.Palette.domain.music.dto.response.PostAddResponse;
 import com.umc.Palette.domain.music.dto.response.PlaylistCreateResponse;
 import com.umc.Palette.domain.music.repository.PlaylistRepository;
+import com.umc.Palette.domain.post.domain.Post;
+import com.umc.Palette.domain.post.repository.PostRepository;
 import com.umc.Palette.domain.user.domain.User;
+import com.umc.Palette.global.exception.BaseException;
+import com.umc.Palette.global.exception.BaseResponseStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class PlaylistService {
     private final PlaylistRepository playlistRepository;
+    private final PostRepository postRepository;
+
 
     @Transactional
     public PlaylistCreateResponse create(User user, PlaylistCreateRequest request) {
@@ -23,5 +30,23 @@ public class PlaylistService {
                 .createdAt(playlist.getCreatedAt())
                 .updatedAt(playlist.getUpdateAt())
                 .build();
+    }
+
+    @Transactional
+    public PostAddResponse addPost(Long playlistId, Long postId) {
+        Post post = postRepository.findById(postId).orElseThrow(() -> new BaseException(BaseResponseStatus.POST_NOT_FOUND));
+        Playlist playlist = playlistRepository.findById(playlistId).orElseThrow(() -> new BaseException(BaseResponseStatus.PLAYLIST_NOT_FOUND));
+        post.addPlaylist(playlist);
+        return PostAddResponse.builder()
+                .playlistId(playlist.getId())
+                .postId(post.getPostId())
+                .build();
+    }
+
+    @Transactional
+    public void removePost(Long playlistId, Long postId) {
+        Post post = postRepository.findById(postId).orElseThrow(() -> new BaseException(BaseResponseStatus.POST_NOT_FOUND));
+        Playlist playlist = playlistRepository.findById(playlistId).orElseThrow(() -> new BaseException(BaseResponseStatus.PLAYLIST_NOT_FOUND));
+        post.removePlaylist(playlist);
     }
 }
