@@ -10,6 +10,7 @@ import com.umc.Palette.domain.user.domain.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.List;
 @Table(name = "post")
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 public class Post extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
