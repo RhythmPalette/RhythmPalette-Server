@@ -58,6 +58,9 @@ public class User extends BaseTimeEntity implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;    // 권한
 
+    @Column(nullable = true)
+    private String profileImg;
+
     @OneToMany(mappedBy = "followerId")
     private List<Follow> followerList = new ArrayList<>();
 
@@ -86,12 +89,12 @@ public class User extends BaseTimeEntity implements UserDetails {
 
     public User(){}
 
-//    @Builder
-//    public User(String loginId, String password, Role role) {
-//        this.loginId = loginId;
-//        this.password = password;
-//        this.role = role;
-//    }
+    public void addPreferenceGenre(int preferenceGenre) {
+        PreferenceGenre newPreference = new PreferenceGenre();
+        newPreference.setUser_id(this);  // 현재 User 엔터티와 연결
+        preferenceGenreList.add(newPreference);
+    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
