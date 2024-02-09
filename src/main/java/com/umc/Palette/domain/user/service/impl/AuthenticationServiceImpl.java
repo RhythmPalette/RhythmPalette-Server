@@ -9,9 +9,6 @@ import com.umc.Palette.domain.user.dto.SigninRequest;
 import com.umc.Palette.domain.user.repository.UserRepository;
 import com.umc.Palette.domain.user.service.AuthenticationService;
 import com.umc.Palette.domain.user.service.JwtService;
-import com.umc.Palette.global.exception.BaseResponse;
-import com.umc.Palette.global.exception.BaseResponseService;
-import com.umc.Palette.global.exception.BaseResponseStatus;
 import jakarta.transaction.Transactional;
 import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
@@ -37,8 +34,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final JwtService jwtService;
 
-    private final BaseResponseService baseResponseService;
-
     public User signup(SignUpRequest signUpRequest) {
 
         User user = new User();
@@ -46,18 +41,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         user.setEmail(signUpRequest.getEmail());
         user.setName(signUpRequest.getName());
         user.setRole(Role.ROLE_USER);
-        System.out.println("사용자 패스워드 미리보기: "+ signUpRequest.getPassword());
-
-        // 제약 검증
-        if (!signUpRequest.getPassword().matches("(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{8,16}")) {
-            // 제약 조건을 만족하지 않는 경우
-            throw new ConstraintViolationException("비밀번호 제약을 만족하지 않습니다.", null);
-//            return baseResponseService.getFailureResponse(BaseResponseStatus.NOT_SATISFIED_PW_CRITERIA);
-        } else {
-            // 제약이 충족된 경우 비밀번호 암호화
-            user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
-        }
-
         user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
         user.setNickname(signUpRequest.getNickname());  // 잠시 추가
         user.setIntroduction(signUpRequest.getIntroduction());  // 잠시 추가
@@ -88,13 +71,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         String userLoginId = jwtService.extractUserName(refreshTokenRequest.getToken());
         User user = userRepository.findByLoginId(userLoginId).orElseThrow();
 
-        if(jwtService.isTokenValid(refreshTokenRequest.getToken(), user)) {
+        if (jwtService.isTokenValid(refreshTokenRequest.getToken(), user)) {
             var jwt = jwtService.generateToken(user);
 
             JwtAuthenticationResponse jwtAuthenticationResponse = new JwtAuthenticationResponse();
 
             jwtAuthenticationResponse.setToken(jwt);
-            jwtAuthenticationResponse.setRefreshToken(refreshTokenRequest.getToken() );
+            jwtAuthenticationResponse.setRefreshToken(refreshTokenRequest.getToken());
             return jwtAuthenticationResponse;
         }
         return null;
@@ -106,16 +89,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
 
     public boolean passwordCheck(String firstpassword, String secondpassword) {
-        // 제약 검증
-        if (!firstpassword.matches("(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{8,16}")) {
-            // 제약 조건을 만족하지 않는 경우
-            throw new ConstraintViolationException("비밀번호 제약을 만족하지 않습니다.", null);
-        }
-
-        if (firstpassword.equals(secondpassword)){
-            return true;
-        }
-        else
-            return false;
+        return firstpassword.equals(secondpassword);
     }
 }

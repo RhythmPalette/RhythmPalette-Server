@@ -26,29 +26,40 @@ public class MailController {
 
     // 회원가입 - (3) 유저 이메일로 인증번호 전송
     @PostMapping("/signup/emailCheck")
-    public BaseResponse<Object> emailConfirm(@RequestBody EmailCheckRequest emailCheckRequest) {
+    public BaseResponse<Object> emailConfirm(@RequestBody EmailCheckRequest emailCheckRequest) throws Exception {
         String confirm;
-        try {
-            confirm = emailService.sendSimpleMessage(emailCheckRequest.getEmail());
-        } catch (BaseException e){
-            return baseResponseService.getFailureResponse(UNABLE_TO_SEND_EMAIL);
-        }
-        catch (Exception e) {
-            return customExceptionHandler.handleGeneralException(e).getBody();
-        }
-        return new BaseResponse<>(true,"인증번호 값 전송" ,2002 ,confirm);
+        confirm = emailService.sendSimpleMessage(emailCheckRequest.getEmail());
+        if (confirm.isEmpty()) {
+            return BaseResponse.<Object>builder()
+                    .code(2103)
+                    .isSuccess(false)
+                    .message("인증번호 전송 실패")
+                    .build();
+        } else {
+            return BaseResponse.<Object>builder()
+                    .code(2002)
+                    .isSuccess(true)
+                    .message("인증번호 전송 성공")
+                    .build();
 
+        }
     }
 
     // 회원가입 - (4) 유저가 받은 인증번호 일치 확인
     @PostMapping("/signup/emailAuthentication")
-    public BaseResponse<Object> ememailAuthentication(@RequestBody EmailAuthRequest emailAuthRequest) {
-        try {
-            return emailAuthRequest.getCertificationNum().equals(EmailServiceImpl.ePw)
-                    ? baseResponseService.getSuccessResponse(EQUAL_CERTIFICATION_NUM)
-                    : baseResponseService.getFailureResponse(NOT_EQUAL_CERTIFICATION_NUM);
-        } catch (Exception e) {
-            return customExceptionHandler.handleGeneralException(e).getBody();
+    public BaseResponse<Object> emailAuthentication(@RequestBody EmailAuthRequest emailAuthRequest) {
+        if (emailAuthRequest.getCertificationNum().equals(EmailServiceImpl.ePw)){
+            return BaseResponse.<Object>builder()
+                    .code(2003)
+                    .isSuccess(true)
+                    .message("인증번호 일치합니다.")
+                    .build();
+        } else {
+            return BaseResponse.<Object>builder()
+                    .code(2104)
+                    .isSuccess(false)
+                    .message("인증번호가 틀렸습니다.")
+                    .build();
         }
     }
 }

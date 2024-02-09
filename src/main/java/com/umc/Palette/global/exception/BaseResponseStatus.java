@@ -9,7 +9,6 @@ public enum BaseResponseStatus {
     SUCCESS(true, 1000, "요청에 성공했습니다."),
     NOT_EXISTS_LOGIN_ID(true, 2000, "해당 아이디를 사용할 수 있습니다."),
     SATISFIED_PW_CRITERIA(true, 2001, "비밀번호가 확인되었습니다."),
-
     SEND_EMAIL(true, 2002, "인증번호를 전송했습니다."),
     // MainController[회원가입(3)]에서 2002번 status 생성하여 사용, code 겹치지 않기 위해 작성
 
