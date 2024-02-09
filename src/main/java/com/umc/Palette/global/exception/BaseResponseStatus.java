@@ -15,6 +15,8 @@ public enum BaseResponseStatus {
     EQUAL_CERTIFICATION_NUM(true, 2003, "인증번호가 일치합니다."),
     SIGN_UP_COMPLETE(true, 2004, "회원가입을 완료하였습니다."),
 
+    FOLLOW_COMPLETE(true, 3000,"팔로우 완료"),
+
 
 
     // -------- 성공 코드 종료 -------- //
@@ -27,6 +29,12 @@ public enum BaseResponseStatus {
      * User
      * Code : 2000
      */
+    /**
+     * Follow
+     * Code : 3000
+     */
+
+
     ALREADY_EXISTS(false, 2100, "아이디가 이미 존재합니다."),
     NOT_EQUAL_PW(false, 2101, "비밀번호가 일치하지 않습니다."),
     NOT_SATISFIED_PW_CRITERIA(false, 2102, "영어(대/소문), 숫자, 특수문자를 포함해주세요."),
@@ -38,7 +46,7 @@ public enum BaseResponseStatus {
     ENTITY_NOT_FOUND(false, 2004,"entity not found"),
     USER_NOT_FOUND(false, 2005, "해당하는 유저 정보가 없습니다."),
     EMPTY_TOKEN(false, 2006, "토큰을 확인해주세요."),
-    ;
+    ALREADY_FOLLOW(false, 3100, "이미 팔로우 중입니다.");
 
 
 
