@@ -15,6 +15,7 @@ public enum BaseResponseStatus {
     EQUAL_CERTIFICATION_NUM(true, 2003, "인증번호가 일치합니다."),
     SIGN_UP_COMPLETE(true, 2004, "회원가입을 완료하였습니다."),
 
+
     FOLLOW_COMPLETE(true, 3000,"팔로우 완료"),
 
 
