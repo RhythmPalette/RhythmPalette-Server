@@ -8,7 +8,13 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 
+import java.util.Optional;
+
 public interface PostRepository extends JpaRepository<Post, Long> {
+
+    Optional<Post> findById(Long id);
+    void deleteById(Long id);
+
     @Query("SELECT p FROM Post p WHERE MONTH(p.createdAt) = :month")
     List<Post> findAllByMonth(@Param("month") int month);
 
