@@ -1,15 +1,10 @@
 package com.umc.Palette.domain.post.dto;
 
-import com.umc.Palette.domain.emotion.domain.Emotion;
-import com.umc.Palette.domain.music.domain.Music;
 import com.umc.Palette.domain.post.domain.Post;
-import com.umc.Palette.domain.user.domain.User;
 import lombok.Getter;
 
-import java.time.LocalDateTime;
 
-
-public class PostRequestDTO {
+public class PostRequest {
 
     @Getter
     public static class AddDTO {
@@ -25,5 +20,10 @@ public class PostRequestDTO {
                     .build();
         }
 
+    }
+
+    @Getter
+    public  static class UpdateDTO {
+        private String content;
     }
 }
