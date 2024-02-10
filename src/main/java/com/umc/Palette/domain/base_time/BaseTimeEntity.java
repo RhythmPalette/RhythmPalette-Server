@@ -10,9 +10,9 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
+@Getter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-@Getter
 public class BaseTimeEntity {
 
     // Entity가 생성되어 저장될 때 시간이 자동 저장됩니다.
