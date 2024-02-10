@@ -9,10 +9,14 @@ import com.umc.Palette.domain.user.domain.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Builder
+@Getter
 @Table(name = "post")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -46,4 +50,7 @@ public class Post extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "playlist_id")
     private Playlist playlist;
+
+    @OneToMany(mappedBy = "post")
+    private List<PostLike> postLike;
 }
