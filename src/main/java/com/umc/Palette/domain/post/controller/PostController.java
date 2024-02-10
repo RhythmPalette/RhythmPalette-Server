@@ -22,6 +22,9 @@ public class PostController {
                 .message("게시글이 작성되었습니다.")
                 .build();
     }
+
+
+
     @PatchMapping("/{postId}")
     public BaseResponse<Object> updatePost(@PathVariable(name = "postId") Long postId, @RequestBody PostRequest.UpdateDTO updateDTO){
         postService.updatePost(updateDTO, postId);
@@ -29,6 +32,14 @@ public class PostController {
                 .code(200)
                 .isSuccess(true)
                 .message("게시글이 수정되었습니다.")
+
                 .build();
     }
+    @DeleteMapping("/{postId}")
+    public BaseResponse<Object> deletePost(@PathVariable(name = "postId") Long postId){
+        postService.deletePost(postId);
+        return BaseResponse.builder()
+                .code(200)
+                .isSuccess(true)
+                .message("게시글이 삭제되었습니다.")
 }

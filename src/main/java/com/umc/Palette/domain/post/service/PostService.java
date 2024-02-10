@@ -1,4 +1,5 @@
 package com.umc.Palette.domain.post.service;
+
 import com.umc.Palette.domain.music.repository.MusicRepository;
 import com.umc.Palette.domain.post.domain.Post;
 import com.umc.Palette.domain.post.dto.PostRequest;
@@ -26,9 +27,14 @@ public class PostService {
         postRepository.save(addDTO.toEntity(/*user, music, emotion*/));
     }
 
+
     public void updatePost(PostRequest.UpdateDTO updateDTO, Long postId){
         Post post = postRepository.findById(postId).orElseThrow();
         post.updateContent(updateDTO.getContent());
         postRepository.save(post);
+
     }
+  public void deletePost(Long postId){
+        postRepository.deleteById(postId);
+  }
 }
