@@ -7,6 +7,8 @@ import com.umc.Palette.domain.music.domain.Music;
 import com.umc.Palette.domain.music.domain.Playlist;
 import com.umc.Palette.domain.situation.domain.Situation;
 import com.umc.Palette.domain.user.domain.User;
+import com.umc.Palette.global.exception.BaseException;
+import com.umc.Palette.global.exception.BaseResponseStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -62,4 +64,25 @@ public class Post extends BaseTimeEntity {
     }
     @OneToMany(mappedBy = "post")
     private List<PostLike> postLike;
+  
+    public void addPlaylist(Playlist playlist) {
+        if (this.playlist != null) {
+            this.playlist.getPosts().remove(this);
+        }
+
+        this.playlist = playlist;
+
+        if (playlist != null) {
+            playlist.getPosts().add(this);
+        }
+    }
+
+    public void removePlaylist(Playlist playlist) {
+        if (this.playlist != playlist) {
+            throw new BaseException(BaseResponseStatus.POST_IS_NOT_ON_PLAYLIST);
+        }
+        else {
+            this.playlist = null;
+        }
+    }
 }
