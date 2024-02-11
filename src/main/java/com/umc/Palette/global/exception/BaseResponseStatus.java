@@ -15,6 +15,8 @@ public enum BaseResponseStatus {
     EQUAL_CERTIFICATION_NUM(true, 2003, "인증번호가 일치합니다."),
     SIGN_UP_COMPLETE(true, 2004, "회원가입을 완료하였습니다."),
 
+    FOLLOW_COMPLETE(true, 3000,"팔로우 완료"),
+
 
 
     // -------- 성공 코드 종료 -------- //
@@ -27,6 +29,13 @@ public enum BaseResponseStatus {
      * User
      * Code : 2000
      */
+
+    /**
+     * Follow
+     * Code : 3000
+     */
+
+
 
     INVALID_PASSWORD(false, 2000, "아이디 또는 비밀번호가 틀렸습니다."),
     ALREADY_EXISTS(false, 20001, "아이디가 이미 존재합니다."),
@@ -44,7 +53,11 @@ public enum BaseResponseStatus {
     UNABLE_TO_SEND_EMAIL(false, 2103, "이메일 전송에 실패하였습니다."),
     NOT_EQUAL_CERTIFICATION_NUM(false, 2104, "인증번호가 일치하지 않습니다."),
 
+
+
+    ALREADY_FOLLOW(false, 3100, "이미 팔로우 중입니다.")
     ;
+
 
     // -------- 실패 코드 종료 -------- //
 
