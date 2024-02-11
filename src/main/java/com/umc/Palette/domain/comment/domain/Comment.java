@@ -1,27 +1,21 @@
 package com.umc.Palette.domain.comment.domain;
 
 
-import com.umc.Palette.domain.base_time.BaseTimeEntity;
 import com.umc.Palette.domain.post.domain.Post;
 import com.umc.Palette.domain.user.domain.User;
 import jakarta.persistence.*;
-import lombok.*;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "comments")
-@Builder
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
-public class Comment extends BaseTimeEntity {
+@NoArgsConstructor
+public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,13 +34,12 @@ public class Comment extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Post post;
 
+    @Column(name = "created_at")
+    @CreatedDate
+    private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
-    private List<UserCommentLike> likes = new ArrayList<>();
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
+    @Column(name = "updated_at")
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
 
 }

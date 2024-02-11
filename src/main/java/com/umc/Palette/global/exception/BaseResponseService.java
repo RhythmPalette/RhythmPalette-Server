@@ -19,8 +19,6 @@ public interface BaseResponseService {
      */
     <T> BaseResponse<Object> getSuccessResponse();
 
-    <T>  BaseResponse<Object> getSuccessResponse(BaseResponseStatus status);
-
     /**
      * 실패 응답 메서드
      *
