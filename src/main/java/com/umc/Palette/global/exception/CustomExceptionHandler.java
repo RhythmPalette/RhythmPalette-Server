@@ -2,9 +2,6 @@ package com.umc.Palette.global.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -32,26 +29,4 @@ public class CustomExceptionHandler {
 //                .build();
 //        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 //    }
-  
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<BaseResponse<Object>> handleMethodArgumentNotValid(MethodArgumentNotValidException exception) {
-        BindingResult result = exception.getBindingResult();
-        StringBuilder message = new StringBuilder();
-
-        for (FieldError error : result.getFieldErrors()) {
-            message.append("[")
-                    .append(error.getField())
-                    .append("] ")
-                    .append(":")
-                    .append(error.getDefaultMessage());
-        }
-
-        BaseResponse<Object> response = BaseResponse.builder()
-                .isSuccess(false)
-                .code(HttpStatus.BAD_REQUEST.value())
-                .message(message.toString())
-                .build();
-
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-    }
 }

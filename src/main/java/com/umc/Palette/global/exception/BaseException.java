@@ -5,7 +5,9 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class BaseException extends RuntimeException {
+public class BaseException extends Exception {
 
     public BaseResponseStatus status;
 }
+
+
