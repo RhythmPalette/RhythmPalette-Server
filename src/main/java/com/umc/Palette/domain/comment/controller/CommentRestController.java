@@ -6,9 +6,6 @@ import com.umc.Palette.domain.comment.service.CommentService;
 import com.umc.Palette.global.exception.BaseResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,16 +19,20 @@ public class CommentRestController {
 
     private final CommentService commentService;
 
-//    @GetMapping
-//    public ResponseEntity<List<CommentDto>> getComment(@PathVariable(name = "postId") Long postId) {
-//        List<CommentDto> comments = commentService.getComments(postId);
-//        return ResponseEntity.ok(comments);
-//    }
+    @GetMapping
+    public BaseResponse<List<CommentDto>> getComment(@PathVariable(name = "postId") Long postId) {
+        List<CommentDto> comments = commentService.getComments(postId);
+        return   BaseResponse.<List<CommentDto>>builder()
+                .data(comments)
+                .code(200)
+                .isSuccess(true)
+                .message("게시글 댓글 반환.")
+                .build();
+    }
 
     @PostMapping
     public BaseResponse<CommentDto> postComment(@RequestBody  CommentRequestDTO.CreateDTO request) {
         CommentDto createdComment = commentService.createComment(request);
-        log.info("컨트롤러 return 확인");
         return BaseResponse.<CommentDto>builder()
                 .data(createdComment)
                 .code(200)
@@ -61,21 +62,7 @@ public class CommentRestController {
                 .message("게시글이 삭제되었습니다.")
                 .build();
     }
-//
-//    @GetMapping("/{commentId}/liked-people")
-//    public void getCommentLike(){
-//
-//    }
-//
-//    @PostMapping("/{commentId}/likes")
-//    public void postCommentLike(){
-//
-//    }
-//
-//    @DeleteMapping("/{commentId}/likes")
-//    public void deleteCommentLike(){
-//
-//    }
+
 
 
 }
