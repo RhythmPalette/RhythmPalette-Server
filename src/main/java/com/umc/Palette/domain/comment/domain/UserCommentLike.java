@@ -2,6 +2,8 @@ package com.umc.Palette.domain.comment.domain;
 
 import com.umc.Palette.domain.user.domain.User;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +11,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "user_comment_likes")
 @Getter
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class UserCommentLike {
 
     @Id

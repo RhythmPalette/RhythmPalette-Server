@@ -1,6 +1,5 @@
 package com.umc.Palette.domain.post.dto;
 
-import com.umc.Palette.domain.comment.domain.Comment;
 import com.umc.Palette.domain.emotion.domain.Emotion;
 import com.umc.Palette.domain.music.domain.Music;
 import com.umc.Palette.domain.post.domain.Post;
@@ -12,8 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class PostResponseDTO {
-
+public class PostResponse {
     @Getter
     @Builder
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -23,7 +21,7 @@ public class PostResponseDTO {
         private Long postId;
         private String content;
         private User userInfo;
-//        private List<Comment> comments;
+        //        private List<Comment> comments;
         private Emotion emotion;
         private Situation situation;
         private Music music;
@@ -54,7 +52,4 @@ public class PostResponseDTO {
             return posts.stream().map(post ->postDetail.of(post/*,user*/)).collect(Collectors.toList());
         }
     }
-
-
-
 }

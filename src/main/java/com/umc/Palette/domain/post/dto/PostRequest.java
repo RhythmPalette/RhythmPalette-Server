@@ -4,7 +4,7 @@ import com.umc.Palette.domain.post.domain.Post;
 import lombok.Getter;
 
 
-public class PostRequestDTO {
+public class PostRequest {
 
     @Getter
     public static class AddDTO {
