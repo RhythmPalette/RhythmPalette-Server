@@ -13,6 +13,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Boolean existsByLoginId(String loginId);
     Optional<User> findByLoginId(String loginId); // jwt에서 사용
 
+
     User findByRole(Role role);
 
 }

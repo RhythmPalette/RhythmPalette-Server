@@ -18,6 +18,9 @@ public enum BaseResponseStatus {
     FOLLOW_COMPLETE(true, 3000,"팔로우 완료"),
 
 
+    FOLLOW_COMPLETE(true, 3000,"팔로우 완료"),
+
+
 
     // -------- 성공 코드 종료 -------- //
 
@@ -28,11 +31,6 @@ public enum BaseResponseStatus {
     /**
      * User
      * Code : 2000
-     */
-
-    /**
-     * Follow
-     * Code : 3000
      */
 
 
@@ -47,6 +45,7 @@ public enum BaseResponseStatus {
     PLAYLIST_NOT_FOUND(false, 404, "해당 플레이리스트가 존재하지 않습니다."),
     POST_IS_NOT_ON_PLAYLIST(false, 400, "해당 Post는 해당 Playlist에 담겨 있지 않습니다."),
 
+
     NOT_EQUAL_PW(false, 2101, "비밀번호가 일치하지 않습니다."),
     NOT_SATISFIED_PW_CRITERIA(false, 2102, "영어(대/소문), 숫자, 특수문자를 포함해주세요."),
 
@@ -55,7 +54,7 @@ public enum BaseResponseStatus {
 
 
 
-    ALREADY_FOLLOW(false, 3100, "이미 팔로우 중입니다.")
+
     ;
 
 
