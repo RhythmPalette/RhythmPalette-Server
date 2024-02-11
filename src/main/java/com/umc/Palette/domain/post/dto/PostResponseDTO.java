@@ -1,7 +1,7 @@
 package com.umc.Palette.domain.post.dto;
 
-import com.umc.Palette.domain.comment.domain.Comment;
 import com.umc.Palette.domain.emotion.domain.Emotion;
+import com.umc.Palette.domain.post.domain.Image;
 import com.umc.Palette.domain.music.domain.Music;
 import com.umc.Palette.domain.post.domain.Post;
 import com.umc.Palette.domain.situation.domain.Situation;
@@ -52,6 +52,21 @@ public class PostResponseDTO {
         }
         public static List<postDetail> from(List<Post> posts/*, User user*/){
             return posts.stream().map(post ->postDetail.of(post/*,user*/)).collect(Collectors.toList());
+        }
+    }
+
+    @Getter
+    public static class ImageDTO {
+        private String id;
+        private String model_version;
+        private Image[] images;
+
+        public static Image to(Image image){
+            return Image.builder()
+                    .id(image.getId())
+                    .seed(image.getSeed())
+                    .image(image.getImage())
+                    .build();
         }
     }
 

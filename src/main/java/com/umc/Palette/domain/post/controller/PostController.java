@@ -1,13 +1,21 @@
 package com.umc.Palette.domain.post.controller;
 
+import com.umc.Palette.domain.post.domain.Image;
+import com.umc.Palette.domain.post.repository.ImageRepository;
+import com.umc.Palette.domain.post.service.ImageService;
 import com.umc.Palette.domain.post.service.PostService;
 import com.umc.Palette.global.exception.BaseResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
-import com.fasterxml.jackson.databind.ser.Serializers;
 import com.umc.Palette.domain.post.dto.PostRequestDTO;
 import com.umc.Palette.domain.post.dto.PostResponseDTO;
+import org.springframework.web.client.RestTemplate;
 
 
 @RestController
@@ -16,6 +24,7 @@ import com.umc.Palette.domain.post.dto.PostResponseDTO;
 public class PostController {
 
     private final PostService postService;
+    private final ImageService imageService;
 
     @PostMapping
     public BaseResponse<Object> addPost(@RequestBody PostRequestDTO.AddDTO addDTO/*, HttpServletRequest request*/){
@@ -86,6 +95,18 @@ public class PostController {
                 .code(200)
                 .isSuccess(true)
                 .message("게시글이 삭제되었습니다.")
+                .build();
+    }
+
+    @PostMapping("/image")
+    public BaseResponse<Object> doInference(@RequestBody PostRequestDTO.ImageDTO request) {
+
+        PostResponseDTO.ImageDTO response = imageService.createImage(request);
+
+        return BaseResponse.builder()
+                .code(200)
+                .message("이미지가 생성되었습니다")
+                .data(response)
                 .build();
     }
 }
