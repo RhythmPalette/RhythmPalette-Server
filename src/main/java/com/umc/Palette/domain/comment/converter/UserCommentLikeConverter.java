@@ -20,8 +20,11 @@ public class UserCommentLikeConverter {
                 .build();
     }
 
-    public static UserCommentLikeDto toUserCommentLikeDto(Long postId, Long commentId){
-        UserCommentLikeDto userCommentLikeDto = UserCommentLikeDto.builder().build();
+    public static UserCommentLikeDto toUserCommentLikeDto(User user, Long commentId){
+        UserCommentLikeDto userCommentLikeDto =
+                UserCommentLikeDto.builder()
+
+                .build();
         return userCommentLikeDto;
     }
 
