@@ -26,4 +26,10 @@ public class PostRequest {
     public  static class UpdateDTO {
         private String content;
     }
+
+    @Getter
+    public static class ImageDTO {
+        private String prompt;
+        private Integer samples;
+    }
 }

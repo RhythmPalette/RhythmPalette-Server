@@ -19,10 +19,10 @@ import java.util.List;
 
 @Entity
 @Builder
+@Getter
 @Table(name = "post")
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
 public class Post extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,13 +58,13 @@ public class Post extends BaseTimeEntity {
     @JoinColumn(name = "playlist_id")
     private Playlist playlist;
 
+
     public void updateContent(String content){
         this.content = content;
     }
-
     @OneToMany(mappedBy = "post")
     private List<PostLike> postLike;
-  
+
     public void addPlaylist(Playlist playlist) {
         if (this.playlist != null) {
             this.playlist.getPosts().remove(this);

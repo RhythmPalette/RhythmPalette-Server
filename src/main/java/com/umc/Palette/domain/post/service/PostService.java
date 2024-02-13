@@ -1,24 +1,24 @@
 package com.umc.Palette.domain.post.service;
 
-import com.umc.Palette.domain.music.repository.MusicRepository;
+
 import com.umc.Palette.domain.post.domain.Post;
 import com.umc.Palette.domain.post.dto.PostRequest;
 import com.umc.Palette.domain.post.dto.PostResponse;
+import com.umc.Palette.domain.music.repository.MusicRepository;
 import com.umc.Palette.domain.post.repository.PostRepository;
 import com.umc.Palette.domain.user.repository.UserRepository;
-import com.umc.Palette.global.exception.BaseResponse;
-import com.umc.Palette.global.exception.CustomExceptionHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+
 import java.util.List;
 
-import static com.umc.Palette.global.exception.BaseResponseStatus.ENTITY_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
 public class PostService {
     private final PostRepository postRepository;
+//    private final PostLikeRepository postLikeRepository;
     private final UserRepository userRepository;
     private final MusicRepository musicRepository;
 
@@ -60,5 +60,8 @@ public class PostService {
     public void deletePost(Long postId){
             postRepository.deleteById(postId);
     }
+
+
+
 
 }
