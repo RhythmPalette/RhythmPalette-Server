@@ -36,7 +36,7 @@ public class PlaylistController {
     }
 
     // 플레이리스트에 게시글 추가
-    @PatchMapping("/{playlistId}")
+    @PatchMapping("/{playlistId}/add")
     @ResponseStatus(HttpStatus.OK)
     BaseResponse<PostAddResponse> addPost(
             @PathVariable("playlistId") Long playlistId,
@@ -45,7 +45,7 @@ public class PlaylistController {
         PostAddResponse response = playlistService.addPost(playlistId, postId);
         return BaseResponse.<PostAddResponse>builder()
                 .isSuccess(true)
-                .message("플레이리스트에 정상적으로 해당 게시물이 추가되었습니다.")
+                .message("플레이리스트에 정상적으로 해당 게시글이 추가되었습니다.")
                 .code(200)
                 .data(response)
                 .build();
@@ -61,7 +61,7 @@ public class PlaylistController {
         playlistService.removePost(playlistId, postId);
         return BaseResponse.builder()
                 .isSuccess(true)
-                .message("플레이리스트에서 정상적으로 해당 게시물이 삭제되었습니다.")
+                .message("플레이리스트에서 정상적으로 해당 게시글이 삭제되었습니다.")
                 .code(200)
                 .data(null)
                 .build();
@@ -76,7 +76,7 @@ public class PlaylistController {
         PlaylistResponse response = playlistService.getPlaylist(playlistId);
         return BaseResponse.<PlaylistResponse>builder()
                         .isSuccess(true)
-                        .message("해당 플레이리스트의 게시물들이 정상적으로 조회되었습니다.")
+                        .message("해당 플레이리스트의 게시글들이 정상적으로 조회되었습니다.")
                         .code(200)
                         .data(response)
                         .build();

@@ -34,9 +34,9 @@ public enum BaseResponseStatus {
     USER_NOT_FOUND(false, 2003, "해당하는 유저 정보가 없습니다."),
     EMPTY_TOKEN(false, 2004, "토큰을 확인해주세요."),
 
-    POST_NOT_FOUND(false, 404, "해당 게시물이 존재하지 않습니다."),
+    POST_NOT_FOUND(false, 404, "해당 게시글이 존재하지 않습니다."),
     PLAYLIST_NOT_FOUND(false, 404, "해당 플레이리스트가 존재하지 않습니다."),
-    POST_IS_NOT_ON_PLAYLIST(false, 400, "해당 Post는 해당 Playlist에 담겨 있지 않습니다."),
+    POST_IS_NOT_ON_PLAYLIST(false, 400, "게시글은 해당 플레이리스트에 담겨 있지 않습니다."),
 
     NOT_EQUAL_PW(false, 2101, "비밀번호가 일치하지 않습니다."),
     NOT_SATISFIED_PW_CRITERIA(false, 2102, "영어(대/소문), 숫자, 특수문자를 포함해주세요."),
