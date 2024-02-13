@@ -12,7 +12,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class PostResponse {
+public class PostResponseDTO {
+
     @Getter
     @Builder
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -22,7 +23,7 @@ public class PostResponse {
         private Long postId;
         private String content;
         private User userInfo;
-        //        private List<Comment> comments;
+//        private List<Comment> comments;
         private Emotion emotion;
         private Situation situation;
         private Music music;

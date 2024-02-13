@@ -3,9 +3,7 @@ package com.umc.Palette.domain.preference_genre.domain;
 import com.umc.Palette.domain.music.domain.Genre;
 import com.umc.Palette.domain.user.domain.User;
 import jakarta.persistence.*;
-import lombok.Setter;
 
-@Setter
 @Entity
 public class PreferenceGenre {
 
