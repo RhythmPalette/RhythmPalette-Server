@@ -21,8 +21,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserCommentLikeServiceImpl implements UserCommentLikeService {
 
-    private UserCommentLikeRepository userCommentLikeRepository;
-    private CommentRepository commentRepository;
+    public final UserCommentLikeRepository userCommentLikeRepository;
+    public final CommentRepository commentRepository;
 
     @Override
     public List<UserCommentLikeDto> commentLikes(User user, Long commentId) {
@@ -43,6 +43,11 @@ public class UserCommentLikeServiceImpl implements UserCommentLikeService {
     @Override
     public Boolean commentLikeAdd(User user, Long commentId) {
         Comment likedComment = commentRepository.findById(commentId).orElseThrow(()->new EntityNotFoundException("Comment not found"));
+        Optional<UserCommentLike> checkUserCommentLike = Optional.ofNullable(userCommentLikeRepository.findByUserAndComment(user, likedComment));
+        if(checkUserCommentLike.isPresent()){
+            return false;
+        }
+
         UserCommentLike addUserCommentLike = UserCommentLikeConverter.toUserCommentLike(user, likedComment);
         userCommentLikeRepository.save(addUserCommentLike);
         return true;
@@ -50,9 +55,13 @@ public class UserCommentLikeServiceImpl implements UserCommentLikeService {
 
     @Override
     public Boolean commentLikeCancel(User user, Long commentId) {
-        Comment cancledComment = commentRepository.findById(commentId).orElseThrow(()->new EntityNotFoundException("Comment not found"));
-        UserCommentLike cancelUserCommentLike = UserCommentLikeConverter.toUserCommentLike(user, cancledComment);
-        userCommentLikeRepository.delete(cancelUserCommentLike);
-        return true;
+        Comment cancledComment = commentRepository.findById(commentId).orElseThrow(() -> new EntityNotFoundException("Comment not found"));
+        Optional<UserCommentLike> cancelUserCommentLike = Optional.ofNullable(userCommentLikeRepository.findByUserAndComment(user, cancledComment));
+        if (cancelUserCommentLike.isPresent()) {
+            userCommentLikeRepository.delete(cancelUserCommentLike.get());
+            return true;
+        } else {
+            return false;
+        }
     }
 }
