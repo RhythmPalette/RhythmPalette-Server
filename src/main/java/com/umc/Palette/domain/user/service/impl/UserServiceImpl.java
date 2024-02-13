@@ -23,16 +23,7 @@ public class UserServiceImpl implements UserService {
                         .orElseThrow(() -> new UsernameNotFoundException("User not found"));
             }
         };
-
     }
 
-//    @Override
-//    public String checkLoginIdDuplicate(String loginId) {
-//        return userRepository.existsByLoginId(loginId);
-//    }
-
-//    public boolean checkLoginIdDuplicate(String loginId) {
-//        return userRepository.existsByLoginId(loginId);
-//    }
 
 }

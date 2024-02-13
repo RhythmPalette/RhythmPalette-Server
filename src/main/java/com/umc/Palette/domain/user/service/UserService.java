@@ -5,6 +5,8 @@ public interface UserService {
 
     UserDetailsService userDetailsService();
 
+//    boolean isEmailAlreadyInUse(String email);
+
 //    String checkLoginIdDuplicate(String loginId);
 
 
