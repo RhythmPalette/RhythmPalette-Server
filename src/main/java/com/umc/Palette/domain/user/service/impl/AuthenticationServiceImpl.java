@@ -10,7 +10,6 @@ import com.umc.Palette.domain.user.repository.UserRepository;
 import com.umc.Palette.domain.user.service.AuthenticationService;
 import com.umc.Palette.domain.user.service.JwtService;
 import jakarta.transaction.Transactional;
-import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -42,8 +41,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         user.setName(signUpRequest.getName());
         user.setRole(Role.ROLE_USER);
         user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
-        user.setNickname(signUpRequest.getNickname());  // 잠시 추가
-        user.setIntroduction(signUpRequest.getIntroduction());  // 잠시 추가
+        user.setNickname("");  // 잠시 추가
+        user.setIntroduction("");  // 잠시 추가
         user.setLoginId(signUpRequest.getLoginId());
 
         return userRepository.save(user);
