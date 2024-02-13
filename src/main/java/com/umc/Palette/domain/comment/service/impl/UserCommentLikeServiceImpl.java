@@ -8,7 +8,6 @@ import com.umc.Palette.domain.comment.repository.CommentRepository;
 import com.umc.Palette.domain.comment.repository.UserCommentLikeRepository;
 import com.umc.Palette.domain.comment.service.UserCommentLikeService;
 import com.umc.Palette.domain.user.domain.User;
-import com.umc.Palette.domain.user.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

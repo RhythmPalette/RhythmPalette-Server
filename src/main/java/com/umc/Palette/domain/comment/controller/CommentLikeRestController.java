@@ -31,7 +31,6 @@ public class CommentLikeRestController {
 
     @PostMapping("/likes")
     public BaseResponse<Boolean> postCommentLike(@LoggedInUser User user, @PathVariable(name = "commentId") Long commentId){
-        log.info("로그인 아이디 우혁 : "+user.getUserId());
         Boolean commentLikeAdd = userCommentLikeService.commentLikeAdd(user, commentId);
         if(commentLikeAdd == true){
             return BaseResponse.<Boolean>builder()
@@ -54,7 +53,6 @@ public class CommentLikeRestController {
 
     @DeleteMapping("/likes")
     public BaseResponse<Boolean> deleteCommentLike(@LoggedInUser User user, @PathVariable(name = "commentId") Long commentId){
-        log.info("로그인 아이디 우혁 : "+user.getUserId());
 
         Boolean commentLikeCancel = userCommentLikeService.commentLikeCancel(user, commentId);
         if(commentLikeCancel==true){
