@@ -5,6 +5,7 @@ import com.umc.Palette.domain.post.dto.PostRequestDTO;
 import com.umc.Palette.domain.post.dto.PostResponseDTO;
 import com.umc.Palette.domain.post.repository.ImageRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -17,10 +18,11 @@ import org.springframework.web.client.RestTemplate;
 public class ImageService {
 
     private final ImageRepository imageRepository;
+    @Value("${kakao-api-key}")
+    private String kakaoApiKey;
 
     public PostResponseDTO.ImageDTO createImage(PostRequestDTO.ImageDTO imageDTO){
         String kakaoApiUrl = "https://api.kakaobrain.com/v2/inference/karlo/t2i";
-        String kakaoApiKey = "90e550050f17eef60e69216d9fc2d4b9";
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
