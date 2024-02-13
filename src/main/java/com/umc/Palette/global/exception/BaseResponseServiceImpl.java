@@ -35,6 +35,16 @@ public class BaseResponseServiceImpl implements BaseResponseService {
                 .build();
     }
 
+    public <T> BaseResponse<Object> getSuccessResponse(BaseResponseStatus status) {
+        return BaseResponse.builder()
+                .isSuccess(status.isSuccess())
+                .code(status.getCode())
+                .message(status.getMessage())
+                .build();
+    }
+
+
+
     /**
      * 실패 응답 메서드
      *
