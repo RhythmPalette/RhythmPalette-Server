@@ -3,9 +3,11 @@ package com.umc.Palette.domain.follow.domain;
 import com.umc.Palette.domain.base_time.BaseTimeEntity;
 import com.umc.Palette.domain.user.domain.User;
 import jakarta.persistence.*;
-import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
-@Setter
+import java.sql.Timestamp;
+
 @Entity
 public class Follow extends BaseTimeEntity {
 

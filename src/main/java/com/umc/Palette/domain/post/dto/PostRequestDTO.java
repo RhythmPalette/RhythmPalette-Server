@@ -4,7 +4,7 @@ import com.umc.Palette.domain.post.domain.Post;
 import lombok.Getter;
 
 
-public class PostRequest {
+public class PostRequestDTO {
 
     @Getter
     public static class AddDTO {
@@ -25,5 +25,11 @@ public class PostRequest {
     @Getter
     public  static class UpdateDTO {
         private String content;
+    }
+
+    @Getter
+    public static class ImageDTO {
+        private String prompt;
+        private Integer samples;
     }
 }

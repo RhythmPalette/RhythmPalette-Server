@@ -7,21 +7,6 @@ public enum BaseResponseStatus {
 
     // -------- 성공 코드 시작 -------- //
     SUCCESS(true, 1000, "요청에 성공했습니다."),
-    NOT_EXISTS_LOGIN_ID(true, 2000, "해당 아이디를 사용할 수 있습니다."),
-    SATISFIED_PW_CRITERIA(true, 2001, "비밀번호가 확인되었습니다."),
-    SEND_EMAIL(true, 2002, "인증번호를 전송했습니다."),
-    // MainController[회원가입(3)]에서 2002번 status 생성하여 사용, code 겹치지 않기 위해 작성
-
-    EQUAL_CERTIFICATION_NUM(true, 2003, "인증번호가 일치합니다."),
-    SIGN_UP_COMPLETE(true, 2004, "회원가입을 완료하였습니다."),
-
-    FOLLOW_COMPLETE(true, 3000,"팔로우 완료"),
-
-
-    FOLLOW_COMPLETE(true, 3000,"팔로우 완료"),
-
-
-
     // -------- 성공 코드 종료 -------- //
 
 
@@ -32,30 +17,13 @@ public enum BaseResponseStatus {
      * User
      * Code : 2000
      */
-
-
-
     INVALID_PASSWORD(false, 2000, "아이디 또는 비밀번호가 틀렸습니다."),
     ALREADY_EXISTS(false, 20001, "아이디가 이미 존재합니다."),
     ENTITY_NOT_FOUND(false, 2002,"entity not found"),
     USER_NOT_FOUND(false, 2003, "해당하는 유저 정보가 없습니다."),
     EMPTY_TOKEN(false, 2004, "토큰을 확인해주세요."),
-
-    POST_NOT_FOUND(false, 404, "해당 게시물이 존재하지 않습니다."),
-    PLAYLIST_NOT_FOUND(false, 404, "해당 플레이리스트가 존재하지 않습니다."),
-    POST_IS_NOT_ON_PLAYLIST(false, 400, "해당 Post는 해당 Playlist에 담겨 있지 않습니다."),
-
-
-    NOT_EQUAL_PW(false, 2101, "비밀번호가 일치하지 않습니다."),
-    NOT_SATISFIED_PW_CRITERIA(false, 2102, "영어(대/소문), 숫자, 특수문자를 포함해주세요."),
-
-    UNABLE_TO_SEND_EMAIL(false, 2103, "이메일 전송에 실패하였습니다."),
-    NOT_EQUAL_CERTIFICATION_NUM(false, 2104, "인증번호가 일치하지 않습니다."),
-
-
-
-
     ;
+
 
 
     // -------- 실패 코드 종료 -------- //
