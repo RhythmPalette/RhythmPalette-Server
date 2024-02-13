@@ -16,7 +16,9 @@ public enum BaseResponseStatus {
     SIGN_UP_COMPLETE(true, 2004, "회원가입을 완료하였습니다."),
 
     FOLLOW_COMPLETE(true, 3000,"팔로우 완료"),
-    ALREADY_FOLLOW(false, 3100, "이미 팔로우 중입니다."),
+
+
+
 
 
     // -------- 성공 코드 종료 -------- //
@@ -37,6 +39,8 @@ public enum BaseResponseStatus {
     ENTITY_NOT_FOUND(false, 2002,"entity not found"),
     USER_NOT_FOUND(false, 2003, "해당하는 유저 정보가 없습니다."),
     EMPTY_TOKEN(false, 2004, "토큰을 확인해주세요."),
+    ALREADY_FOLLOW(false, 3100, "이미 팔로우 중입니다."),
+
 
     POST_NOT_FOUND(false, 404, "해당 게시글이 존재하지 않습니다."),
     PLAYLIST_NOT_FOUND(false, 404, "해당 플레이리스트가 존재하지 않습니다."),

@@ -33,8 +33,8 @@ public class UserServiceImpl implements UserService {
                         .orElseThrow(() -> new UsernameNotFoundException("User not found"));
             }
         };
-
     }
+
 
     @Override
     public User profileSave(ProfileRequest profileRequest, String loginId) {
