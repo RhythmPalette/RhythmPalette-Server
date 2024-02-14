@@ -1,6 +1,8 @@
 package com.umc.Palette.domain.user.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.umc.Palette.domain.base_time.BaseTimeEntity;
 import com.umc.Palette.domain.comment.domain.Comment;
 import com.umc.Palette.domain.comment.domain.UserCommentLike;
@@ -25,6 +27,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User extends BaseTimeEntity implements UserDetails {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,12 +65,15 @@ public class User extends BaseTimeEntity implements UserDetails {
     private String profileImg;
 
     @OneToMany(mappedBy = "followerId")
+    @JsonIgnore
     private List<Follow> followerList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "followingId")
+    @OneToMany(mappedBy = "followingId", fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<Follow> followingList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user_id")
+    @JsonIgnore
     private List<PreferenceGenre> preferenceGenreList= new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -75,15 +81,19 @@ public class User extends BaseTimeEntity implements UserDetails {
     private Music musicId;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<UserCommentLike> userCommentLikeList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Comment> commentList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<PostLike> postLikeList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Post> postList = new ArrayList<>();
 
 
