@@ -1,6 +1,7 @@
 package com.umc.Palette.domain.post.service;
 
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
@@ -75,6 +76,9 @@ public class ImageService {
         connection.disconnect();
 
         return amazonS3.getUrl(bucketName,fileName).toString();
+    }
+    public void deleteImage(String imageUrl){
+        amazonS3.deleteObject(new DeleteObjectRequest(bucketName, imageUrl));
     }
 
     private String extractFileName(URL url) {

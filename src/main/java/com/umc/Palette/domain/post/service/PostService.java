@@ -104,12 +104,14 @@ public class PostService {
         postRepository.save(post);
 
     }
-    public void deletePost(Long postId){
+    public String deletePost(Long postId){
         List<Comment> comments = commentRepository.findAllByPostId(postId);
         for(Comment comment : comments){
             commentRepository.delete(comment);
         }
+        Post post = postRepository.findById(postId).orElseThrow();
         postRepository.deleteById(postId);
+        return post.getPostImg();
     }
 
 
