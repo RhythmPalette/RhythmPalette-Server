@@ -6,6 +6,7 @@ import com.umc.Palette.domain.post.service.PostService;
 import com.umc.Palette.domain.post.service.PostLikeService;
 
 import com.umc.Palette.domain.user.domain.User;
+import com.umc.Palette.domain.post.domain.Post;
 import com.umc.Palette.global.config.annotation.LoggedInUser;
 import com.umc.Palette.global.exception.BaseResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -132,7 +133,8 @@ public class PostController {
     }
     @DeleteMapping("/{postId}")
     public BaseResponse<Object> deletePost(@PathVariable(name = "postId") Long postId) {
-        postService.deletePost(postId);
+        String postImageUrl = postService.deletePost(postId);
+        imageService.deleteImage(postImageUrl);
         return BaseResponse.builder()
                 .code(200)
                 .isSuccess(true)
