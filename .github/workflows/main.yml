@@ -1,13 +1,13 @@
 name: new Build and Deploy for rhythm-palette-server to rhythm-palette-server EC2
 
-# on:
-#   push:
-#     branches: [ dev ]
 on:
-  pull_request:
-    branches:
-      - dev
-    types: [closed]
+   push:
+     branches: [ feat/deploy-workflow ]
+#on:
+#  pull_request:
+#    branches:
+#      - dev
+#    types: [closed]
     
 env:
   # 버킷에 저장할 폴더 이름
