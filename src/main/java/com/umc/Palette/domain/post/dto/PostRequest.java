@@ -5,7 +5,9 @@ import com.umc.Palette.domain.music.domain.Music;
 import com.umc.Palette.domain.music.dto.request.MusicRequest;
 import com.umc.Palette.domain.post.domain.Post;
 import com.umc.Palette.domain.user.domain.User;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
+import lombok.Setter;
 
 
 public class PostRequest {
@@ -44,8 +46,13 @@ public class PostRequest {
     }
 
     @Getter
+    @Setter
     public static class ImageDTO {
+
+        @Schema(description = "이미지 생성을 위한 영문")
         private String prompt;
+        @Schema(description = "생성할 이미지의 개수. Service 코드에서 6개로 고정됨")
         private Integer samples;
+
     }
 }

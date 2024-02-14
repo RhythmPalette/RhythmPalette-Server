@@ -1,5 +1,6 @@
 package com.umc.Palette.domain.post.controller;
 
+import com.umc.Palette.domain.music.dto.request.MusicRequest;
 import com.umc.Palette.domain.post.service.ImageService;
 import com.umc.Palette.domain.post.service.PostService;
 import com.umc.Palette.domain.post.service.PostLikeService;
@@ -7,12 +8,20 @@ import com.umc.Palette.domain.post.service.PostLikeService;
 import com.umc.Palette.domain.user.domain.User;
 import com.umc.Palette.global.config.annotation.LoggedInUser;
 import com.umc.Palette.global.exception.BaseResponse;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import com.umc.Palette.domain.post.dto.PostRequest;
 import com.umc.Palette.domain.post.dto.PostResponse;
@@ -131,6 +140,7 @@ public class PostController {
                 .build();
     }
 
+    @Operation(description = "이미지를 6개 생성해 https://mk.kakaocdn.net/dna/karlo/image/~ 와 같은 url형식으로 반환됨")
     @PostMapping("/image")
     public BaseResponse<Object> createImage(@RequestBody PostRequest.ImageDTO request) {
 
@@ -159,4 +169,16 @@ public class PostController {
                 .message("게시글에 좋아요를 취소하셨습니다.")
                 .build();
     }
+
+    @Operation(description = "사용자가 선택한 이미지를 url로 입력 받아 서버에 저장 후 해당 이미지의 S3 url을 반환")
+    @PostMapping("/image/upload")
+    public BaseResponse<Object> uploadImageToServer(@RequestParam(name = "imageUrl") String imageUrl) throws IOException {
+        String image = imageService.uploadImageFromUrl(imageUrl);
+        return BaseResponse.builder()
+                .code(200)
+                .message("이미지가 업로드 되었습니다")
+                .data(image)
+                .build();
+    }
+
 }
