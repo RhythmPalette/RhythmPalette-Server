@@ -23,6 +23,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfiguration {
 
+    private final String[] swaggerUrls = {      "/api/**", "/graphiql", "/graphql",
+            "/swagger-ui/**", "/api-docs", "/swagger-ui-custom.html",
+            "/v3/api-docs/**", "/api-docs/**", "/swagger-ui.html"};
+
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     private final UserService userService;
@@ -33,6 +37,7 @@ public class SecurityConfiguration {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request.requestMatchers("/api/v1/auth/**")
                         .permitAll()
+                        .requestMatchers(swaggerUrls).permitAll()
                         .requestMatchers("/api/v1/admin").hasAnyAuthority(Role.ROLE_ADMIN.name())
                         .requestMatchers("/api/v1/user").hasAnyAuthority(Role.ROLE_USER.name())
                         .requestMatchers("/api/vi/no_user").hasAnyAuthority(Role.ROEL_NO_USER.name())
