@@ -16,10 +16,7 @@ public enum BaseResponseStatus {
     SIGN_UP_COMPLETE(true, 2004, "회원가입을 완료하였습니다."),
 
     FOLLOW_COMPLETE(true, 3000,"팔로우 완료"),
-
-
-    FOLLOW_COMPLETE(true, 3000,"팔로우 완료"),
-
+    ALREADY_FOLLOW(false, 3100, "이미 팔로우 중입니다."),
 
 
     // -------- 성공 코드 종료 -------- //
