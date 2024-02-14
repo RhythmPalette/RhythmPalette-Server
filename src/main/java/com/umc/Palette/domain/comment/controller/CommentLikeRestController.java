@@ -1,8 +1,9 @@
 package com.umc.Palette.domain.comment.controller;
 
-import com.umc.Palette.domain.comment.domain.UserCommentLike;
 import com.umc.Palette.domain.comment.dto.UserCommentLikeDto;
 import com.umc.Palette.domain.comment.service.UserCommentLikeService;
+import com.umc.Palette.domain.user.domain.User;
+import com.umc.Palette.global.config.annotation.LoggedInUser;
 import com.umc.Palette.global.exception.BaseResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,9 +19,10 @@ public class CommentLikeRestController {
 
     private final UserCommentLikeService userCommentLikeService;
     @GetMapping("/liked-people")
-    public BaseResponse<List<UserCommentLikeDto>> getCommentLike(@PathVariable(name = "postId") Long postId, @PathVariable(name = "commentId") Long commentId){
-
+    public BaseResponse<List<UserCommentLikeDto>> getCommentLike(@LoggedInUser User user, @PathVariable(name = "commentId") Long commentId){
+        List<UserCommentLikeDto> users = userCommentLikeService.commentLikes(user, commentId);
         return BaseResponse.<List<UserCommentLikeDto>>builder()
+                .data(users)
                 .isSuccess(true)
                 .code(200)
                 .message("조회를 성공하였습니다")
@@ -28,26 +30,46 @@ public class CommentLikeRestController {
     }
 
     @PostMapping("/likes")
-    public BaseResponse<Boolean> postCommentLike(@PathVariable(name = "postId") Long postId, @PathVariable(name = "commentId") Long commentId){
+    public BaseResponse<Boolean> postCommentLike(@LoggedInUser User user, @PathVariable(name = "commentId") Long commentId){
+        Boolean commentLikeAdd = userCommentLikeService.commentLikeAdd(user, commentId);
+        if(commentLikeAdd == true){
+            return BaseResponse.<Boolean>builder()
+                    .data(commentLikeAdd)
+                    .isSuccess(true)
+                    .code(200)
+                    .message("좋아요를 추가하였습니다.")
+                    .build();
+        }
+        else {
+            return BaseResponse.<Boolean>builder()
+                    .data(commentLikeAdd)
+                    .isSuccess(true)
+                    .code(200)
+                    .message("이미 좋아요를 추가하였습니다.")
+                    .build();
+        }
 
-        Boolean commentLikeAdd = userCommentLikeService.commentLikeAdd(postId, commentId);
-        return BaseResponse.<Boolean>builder()
-                .data(commentLikeAdd)
-                .isSuccess(true)
-                .code(200)
-                .message("좋아요를 추가하였습니다.")
-                .build();
     }
 
     @DeleteMapping("/likes")
-    public BaseResponse<Boolean> deleteCommentLike(@PathVariable(name = "postId") Long postId, @PathVariable(name = "commentId") Long commentId){
+    public BaseResponse<Boolean> deleteCommentLike(@LoggedInUser User user, @PathVariable(name = "commentId") Long commentId){
 
-        Boolean commentLikeCancel = userCommentLikeService.commentLikeCancel(postId, commentId);
-        return BaseResponse.<Boolean>builder()
-                .data(commentLikeCancel)
-                .isSuccess(true)
-                .code(200)
-                .message("좋아요를 취소하였습니다.")
-                .build();
+        Boolean commentLikeCancel = userCommentLikeService.commentLikeCancel(user, commentId);
+        if(commentLikeCancel==true){
+            return BaseResponse.<Boolean>builder()
+                    .data(commentLikeCancel)
+                    .isSuccess(true)
+                    .code(200)
+                    .message("좋아요를 취소하였습니다.")
+                    .build();
+        }
+        else{
+            return BaseResponse.<Boolean>builder()
+                    .data(commentLikeCancel)
+                    .isSuccess(true)
+                    .code(200)
+                    .message("이미 좋아요가 취소되었습니다.")
+                    .build();
+        }
     }
 }
