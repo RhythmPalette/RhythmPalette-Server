@@ -1,6 +1,8 @@
 package com.umc.Palette.domain.user.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.umc.Palette.domain.base_time.BaseTimeEntity;
 import com.umc.Palette.domain.comment.domain.Comment;
 import com.umc.Palette.domain.comment.domain.UserCommentLike;
@@ -25,6 +27,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User extends BaseTimeEntity implements UserDetails {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,13 +61,19 @@ public class User extends BaseTimeEntity implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;    // 권한
 
+    @Column(nullable = true)
+    private String profileImg;
+
     @OneToMany(mappedBy = "followerId")
+    @JsonIgnore
     private List<Follow> followerList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "followingId")
+    @OneToMany(mappedBy = "followingId", fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<Follow> followingList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user_id")
+    @JsonIgnore
     private List<PreferenceGenre> preferenceGenreList= new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -72,26 +81,30 @@ public class User extends BaseTimeEntity implements UserDetails {
     private Music musicId;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<UserCommentLike> userCommentLikeList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Comment> commentList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<PostLike> postLikeList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Post> postList = new ArrayList<>();
 
 
     public User(){}
 
-//    @Builder
-//    public User(String loginId, String password, Role role) {
-//        this.loginId = loginId;
-//        this.password = password;
-//        this.role = role;
-//    }
+    public void addPreferenceGenre(int preferenceGenre) {
+        PreferenceGenre newPreference = new PreferenceGenre();
+        newPreference.setUser_id(this);  // 현재 User 엔터티와 연결
+        preferenceGenreList.add(newPreference);
+    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

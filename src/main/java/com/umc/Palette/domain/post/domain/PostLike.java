@@ -2,6 +2,9 @@ package com.umc.Palette.domain.post.domain;
 
 import com.umc.Palette.domain.user.domain.User;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "user_post_like")
@@ -18,5 +21,10 @@ public class PostLike {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
     private Post post;
+
+    public PostLike(Post post, User user){
+        this.post = post;
+        this.user = user;
+    }
 
 }

@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 public class CommentConverter {
     public static Comment toComment(CommentRequestDTO.CreateDTO createDTO, User user, Post post){
-        //id 어떻게할건지
         return Comment.builder()
                 .content(createDTO.getComment())
                 .user(user)
