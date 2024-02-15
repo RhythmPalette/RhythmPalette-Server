@@ -33,7 +33,6 @@ public class UserServiceImpl implements UserService {
                         .orElseThrow(() -> new UsernameNotFoundException("User not found"));
             }
         };
-
     }
 
     @Override
@@ -63,5 +62,6 @@ public class UserServiceImpl implements UserService {
         }
         return null;
     }
+
 
 }

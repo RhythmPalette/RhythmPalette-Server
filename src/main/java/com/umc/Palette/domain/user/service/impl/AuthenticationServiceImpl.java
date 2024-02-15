@@ -2,10 +2,7 @@ package com.umc.Palette.domain.user.service.impl;
 
 import com.umc.Palette.domain.user.Role;
 import com.umc.Palette.domain.user.domain.User;
-import com.umc.Palette.domain.user.dto.JwtAuthenticationResponse;
-import com.umc.Palette.domain.user.dto.RefreshTokenRequest;
-import com.umc.Palette.domain.user.dto.SignUpRequest;
-import com.umc.Palette.domain.user.dto.SigninRequest;
+import com.umc.Palette.domain.user.dto.*;
 import com.umc.Palette.domain.user.repository.UserRepository;
 import com.umc.Palette.domain.user.service.AuthenticationService;
 import com.umc.Palette.domain.user.service.JwtService;
@@ -18,6 +15,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+
+import static com.umc.Palette.domain.kakao.RandomPasswordGenerator.generateRandomPassword;
+
 @Slf4j
 @Service
 @Transactional
@@ -49,6 +49,27 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     }
 
+    @Override
+    public User kakaoSignup(String email, String nickname) { // 카카오 회원가입
+
+        if (userRepository.existsByEmail(email)) {
+            return userRepository.findByEmail(email);
+        }
+        User user = new User();
+
+        user.setEmail(email);
+        user.setName(nickname);
+        user.setRole(Role.ROLE_USER);
+        user.setPassword(passwordEncoder.encode(generateRandomPassword()));
+        user.setNickname(nickname);
+        user.setIntroduction("");
+        user.setLoginId(email);
+
+        return userRepository.save(user);
+
+    }
+
+
     public JwtAuthenticationResponse signin(SigninRequest signinRequest) {
 
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signinRequest.getLoginId(),
@@ -65,6 +86,28 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         return jwtAuthenticationResponse;
 
     }
+
+    public JwtAuthenticationResponse kakaoSignin (KakaoSigninRequest kakaoSigninRequest) {
+        System.out.println("hrerererererererere");
+
+//        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(kakaoSigninRequest.getLoginId(),
+//                kakaoSigninRequest.getNickname()));
+
+        System.out.println("로그인 아이디 정보: " + kakaoSigninRequest.getLoginId() + kakaoSigninRequest.getNickname());
+        System.out.println("\n");
+
+        var user = userRepository.findByLoginId(kakaoSigninRequest.getLoginId()).orElseThrow(() -> new IllegalArgumentException("Invalid login_Id"));
+        var jwt = jwtService.generateToken(user);
+        var refreshToken = jwtService.generateRefreshToken(new HashMap<>(), user);
+
+        JwtAuthenticationResponse jwtAuthenticationResponse = new JwtAuthenticationResponse();
+
+        jwtAuthenticationResponse.setToken(jwt);
+        jwtAuthenticationResponse.setRefreshToken(refreshToken);
+        return jwtAuthenticationResponse;
+
+    }
+
 
     public JwtAuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
         String userLoginId = jwtService.extractUserName(refreshTokenRequest.getToken());
