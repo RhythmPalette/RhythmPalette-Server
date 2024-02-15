@@ -20,13 +20,13 @@ public class PostRequest {
         private String situation2;
         private String situation3;
         private Long emotionId;
-//        private MusicRequest musicRequest;
+        private MusicRequest musicRequest;
         public Post toEntity(User user, Emotion emotion){
             return Post.builder()
                     .user(user)
                     .postImg(postImg)
                     .content(content)
-//                    .music(musicRequest.toEntity())
+                    .music(musicRequest.toEntity())
                     .situation1(situation1)
                     .situation2(situation2)
                     .situation3(situation3)
