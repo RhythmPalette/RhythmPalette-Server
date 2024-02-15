@@ -88,14 +88,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     public JwtAuthenticationResponse kakaoSignin (KakaoSigninRequest kakaoSigninRequest) {
-        System.out.println("hrerererererererere");
-
-//        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(kakaoSigninRequest.getLoginId(),
-//                kakaoSigninRequest.getNickname()));
-
-        System.out.println("로그인 아이디 정보: " + kakaoSigninRequest.getLoginId() + kakaoSigninRequest.getNickname());
-        System.out.println("\n");
-
         var user = userRepository.findByLoginId(kakaoSigninRequest.getLoginId()).orElseThrow(() -> new IllegalArgumentException("Invalid login_Id"));
         var jwt = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(new HashMap<>(), user);

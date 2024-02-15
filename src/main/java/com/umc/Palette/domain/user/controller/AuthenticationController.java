@@ -91,7 +91,6 @@ public class AuthenticationController {
 
     @PostMapping("/kakao/signin")
     public ResponseEntity<JwtAuthenticationResponse> kakaoSignin(@RequestBody KakaoSigninRequest kakaoSigninRequest) {
-        System.out.println("카카오 로그인까지 옴");
         return ResponseEntity.ok(authenticationService.kakaoSignin(kakaoSigninRequest));
 
     }
