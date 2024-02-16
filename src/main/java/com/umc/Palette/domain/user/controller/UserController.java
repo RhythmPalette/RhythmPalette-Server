@@ -40,7 +40,7 @@ public class UserController {
     }
 
     @PostMapping("/profile/image/upload")
-    public BaseResponse<Object> uploadFile(@RequestPart("file")MultipartFile file) throws IOException {
+    public BaseResponse<Object> uploadFile(@RequestParam("file")MultipartFile file) throws IOException {
         String url = fileUploadService.uploadFile(file);
         return BaseResponse.<Object>builder()
                 .code(4001)
