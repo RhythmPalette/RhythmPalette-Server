@@ -30,7 +30,7 @@ import java.net.URL;
 public class ImageService {
 
     private final ImageRepository imageRepository;
-    @Value("${kakao-api-key}")
+    @Value("${karlo-api-key}")
     private String kakaoApiKey;
 
     private final AmazonS3 amazonS3;
