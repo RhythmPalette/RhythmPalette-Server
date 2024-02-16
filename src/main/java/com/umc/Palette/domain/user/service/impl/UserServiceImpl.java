@@ -33,8 +33,8 @@ public class UserServiceImpl implements UserService {
                         .orElseThrow(() -> new UsernameNotFoundException("User not found"));
             }
         };
-
     }
+
 
     @Override
     public User profileSave(ProfileRequest profileRequest, String loginId) {
@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
 
-            user.setProfileImg(profileRequest.getProfileImg());
+//            user.setProfileImg(profileRequest.getProfileImg());
             user.setNickname(profileRequest.getNickname());
             user.setIntroduction(profileRequest.getIntroduction());
             user.setBirth(LocalDate.parse(profileRequest.getBirth()));
@@ -63,5 +63,6 @@ public class UserServiceImpl implements UserService {
         }
         return null;
     }
+
 
 }

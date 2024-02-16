@@ -181,6 +181,6 @@ public class PostController {
                 .message("이미지가 업로드 되었습니다")
                 .data(image)
                 .build();
-    }
 
+    }
 }

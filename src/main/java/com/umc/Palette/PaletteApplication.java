@@ -14,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @SpringBootApplication
 public class PaletteApplication {
 
+
 	public static void main(String[] args) {
 		SpringApplication.run(PaletteApplication.class, args);
 	}

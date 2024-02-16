@@ -7,10 +7,9 @@ public interface UserService {
 
     UserDetailsService userDetailsService();
 
+
     User profileSave(ProfileRequest profileRequest, String loginId);
 
-
-//    String checkLoginIdDuplicate(String loginId);
 
 
 }
