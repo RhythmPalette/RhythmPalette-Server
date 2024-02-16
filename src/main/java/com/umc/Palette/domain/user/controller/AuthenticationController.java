@@ -82,11 +82,20 @@ public class AuthenticationController {
                 .build();
     }
 
+
     @PostMapping("/signin")
     public ResponseEntity<JwtAuthenticationResponse> signin(@RequestBody SigninRequest signinRequest) {
         return ResponseEntity.ok(authenticationService.signin(signinRequest));
 
     }
+
+    @PostMapping("/kakao/signin")
+    public ResponseEntity<JwtAuthenticationResponse> kakaoSignin(@RequestBody KakaoSigninRequest kakaoSigninRequest) {
+        return ResponseEntity.ok(authenticationService.kakaoSignin(kakaoSigninRequest));
+
+    }
+
+
 
     @PostMapping("/refresh")
     public ResponseEntity<JwtAuthenticationResponse> refresh(@RequestBody RefreshTokenRequest refreshTokenRequest) {

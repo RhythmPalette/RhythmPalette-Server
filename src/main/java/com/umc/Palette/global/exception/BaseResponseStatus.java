@@ -15,6 +15,10 @@ public enum BaseResponseStatus {
     EQUAL_CERTIFICATION_NUM(true, 2003, "인증번호가 일치합니다."),
     SIGN_UP_COMPLETE(true, 2004, "회원가입을 완료하였습니다."),
 
+    FOLLOW_COMPLETE(true, 3000,"팔로우 완료"),
+
+
+
 
 
     // -------- 성공 코드 종료 -------- //
@@ -27,19 +31,32 @@ public enum BaseResponseStatus {
      * User
      * Code : 2000
      */
-    ALREADY_EXISTS(false, 2100, "아이디가 이미 존재합니다."),
+
+
+
+    INVALID_PASSWORD(false, 2000, "아이디 또는 비밀번호가 틀렸습니다."),
+    ALREADY_EXISTS(false, 20001, "아이디가 이미 존재합니다."),
+    ENTITY_NOT_FOUND(false, 2002,"entity not found"),
+    USER_NOT_FOUND(false, 2003, "해당하는 유저 정보가 없습니다."),
+    EMPTY_TOKEN(false, 2004, "토큰을 확인해주세요."),
+    ALREADY_FOLLOW(false, 3100, "이미 팔로우 중입니다."),
+
+
+    POST_NOT_FOUND(false, 404, "해당 게시글이 존재하지 않습니다."),
+    PLAYLIST_NOT_FOUND(false, 404, "해당 플레이리스트가 존재하지 않습니다."),
+    POST_IS_NOT_ON_PLAYLIST(false, 400, "게시글은 해당 플레이리스트에 담겨 있지 않습니다."),
+
+
     NOT_EQUAL_PW(false, 2101, "비밀번호가 일치하지 않습니다."),
     NOT_SATISFIED_PW_CRITERIA(false, 2102, "영어(대/소문), 숫자, 특수문자를 포함해주세요."),
 
     UNABLE_TO_SEND_EMAIL(false, 2103, "이메일 전송에 실패하였습니다."),
     NOT_EQUAL_CERTIFICATION_NUM(false, 2104, "인증번호가 일치하지 않습니다."),
 
-    INVALID_PASSWORD(false, 2002, "아이디 또는 비밀번호가 틀렸습니다."),
-    ENTITY_NOT_FOUND(false, 2004,"entity not found"),
-    USER_NOT_FOUND(false, 2005, "해당하는 유저 정보가 없습니다."),
-    EMPTY_TOKEN(false, 2006, "토큰을 확인해주세요."),
-    ;
 
+
+
+    ;
 
 
     // -------- 실패 코드 종료 -------- //

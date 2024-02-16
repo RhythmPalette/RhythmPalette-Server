@@ -3,7 +3,9 @@ package com.umc.Palette.domain.follow.domain;
 import com.umc.Palette.domain.base_time.BaseTimeEntity;
 import com.umc.Palette.domain.user.domain.User;
 import jakarta.persistence.*;
+import lombok.Setter;
 
+@Setter
 @Entity
 public class Follow extends BaseTimeEntity {
 
