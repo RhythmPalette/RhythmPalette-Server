@@ -71,5 +71,6 @@ public class CommentLikeRestController {
                     .message("이미 좋아요가 취소되었습니다.")
                     .build();
         }
+
     }
 }
