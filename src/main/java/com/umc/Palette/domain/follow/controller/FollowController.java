@@ -18,11 +18,39 @@ public class FollowController {
     @ResponseBody
     @PostMapping("/{userId}/{followingId}")
     public BaseResponse<Object> followUser(@PathVariable("userId") Long userId, @PathVariable("followingId") Long followingId) throws BaseException {
-        followService.createFollow(userId, followingId);
+        followService.createFollowing(userId, followingId);
         return BaseResponse.<Object>builder()
                 .code(3000)
                 .isSuccess(true)
-                .message("팔로우가 완료되었습니다.")
+                .message("팔로잉이 완료되었습니다.")
                 .build();
     }
+
+
+    @ResponseBody
+    @DeleteMapping("/{userId}/delete/following/{followingId}")
+    public BaseResponse<Object> deleteFollowing(@PathVariable("userId") Long userId, @PathVariable("followingId") Long followingId) throws BaseException {
+        followService.deleteFollowing(userId, followingId);
+        return BaseResponse.<Object>builder()
+                .code(3000)
+                .isSuccess(true)
+                .message("팔로잉을 끊었습니다.")
+                .build();
+    }
+
+    @ResponseBody
+    @DeleteMapping("/{userId}/delete/follower/{followerId}")
+    public BaseResponse<Object> deleteFollower(@PathVariable("userId") Long userId, @PathVariable("followerId") Long followerId) throws BaseException {
+        followService.deleteFollower(userId, followerId);
+        return BaseResponse.<Object>builder()
+                .code(3000)
+                .isSuccess(true)
+                .message("팔로워를 삭제하였습니다.")
+                .build();
+    }
+
+
+
+
+
 }

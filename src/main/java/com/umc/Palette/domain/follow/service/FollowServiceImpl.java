@@ -9,15 +9,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 
+
 @Service
 @RequiredArgsConstructor
 public class FollowServiceImpl implements FollowService{
 
     private final FollowRepository followRepository;
 
-    public Boolean createFollow(Long userId, Long followingId) throws BaseException {
+    public Boolean createFollowing(Long userId, Long followingId) throws BaseException {
         if (followRepository.existsByFollowerIdUserIdAndFollowingIdUserId(userId, followingId)) {
-            throw new BaseException(BaseResponseStatus.ALREADY_FOLLOW);
+            throw new BaseException(BaseResponseStatus.ALREADY_FOLLOWING);
         } else{
             User followerUser = new User();
             followerUser.setUserId(userId);
@@ -33,4 +34,28 @@ public class FollowServiceImpl implements FollowService{
         return true;
     }
 
+    @Override
+    public void deleteFollowing(Long userId, Long followingId) {
+
+        Follow follow = followRepository.findByFollowerIdUserIdAndFollowingIdUserId(userId, followingId);
+        if (follow != null) {
+            followRepository.delete(follow);
+        } else {
+            throw new BaseException(BaseResponseStatus.NOT_FOLLOWING);
+        }
+    }
+
+    @Override
+    public void deleteFollower(Long userId, Long followerId) {
+        Follow follow = followRepository.findByFollowerIdUserIdAndFollowingIdUserId(followerId, userId);
+        if (follow != null) {
+            followRepository.delete(follow);
+        } else {
+            throw new BaseException(BaseResponseStatus.NOT_FOLLOWER);
+        }
+
+
+
+
+    }
 }
