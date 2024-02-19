@@ -39,7 +39,9 @@ public enum BaseResponseStatus {
     ENTITY_NOT_FOUND(false, 2002,"entity not found"),
     USER_NOT_FOUND(false, 2003, "해당하는 유저 정보가 없습니다."),
     EMPTY_TOKEN(false, 2004, "토큰을 확인해주세요."),
-    ALREADY_FOLLOW(false, 3100, "이미 팔로우 중입니다."),
+    ALREADY_FOLLOWING(false, 3100, "이미 팔로잉 중입니다."),
+    NOT_FOLLOWING(false, 3101, "해당 유저를 팔로잉하지 않았습니다."),
+    NOT_FOLLOWER(false, 3102, "해당 유저는 팔로워가 아닙니다."),
 
 
     POST_NOT_FOUND(false, 404, "해당 게시글이 존재하지 않습니다."),
