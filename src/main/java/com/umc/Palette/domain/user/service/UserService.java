@@ -17,5 +17,9 @@ public interface UserService {
     Map<String, Object> getProfileInfo(String loginId);
 
     User profileMusicSave(Music music, String loginId);
+
+    Map<String, Object> visit(String visitedUserId);
+
+    User saveUploadImg(String file, String loginId);
 }
 

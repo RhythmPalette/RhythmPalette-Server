@@ -6,8 +6,6 @@ import com.umc.Palette.domain.user.domain.User;
 import com.umc.Palette.domain.user.dto.ProfileRequest;
 import com.umc.Palette.domain.user.repository.UserRepository;
 import com.umc.Palette.domain.user.service.UserService;
-import com.umc.Palette.global.exception.BaseException;
-import com.umc.Palette.global.exception.BaseResponseStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -38,6 +36,19 @@ public class UserServiceImpl implements UserService {
         };
     }
 
+    @Override
+    public User saveUploadImg(String url, String loginId) {
+        Optional<User> optionalUser = userRepository.findByLoginId(loginId);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            user.setProfileImg(url);
+
+            return userRepository.save(user);
+        } else {
+            return null;
+        }
+
+    }
 
     @Override
     public User profileSave(ProfileRequest profileRequest, String loginId) {
@@ -47,7 +58,6 @@ public class UserServiceImpl implements UserService {
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
 
-//            user.setProfileImg(profileRequest.getProfileImg());
             user.setNickname(profileRequest.getNickname());
             user.setIntroduction(profileRequest.getIntroduction());
             user.setBirth(LocalDate.parse(profileRequest.getBirth()));
@@ -57,10 +67,6 @@ public class UserServiceImpl implements UserService {
             user.addPreferenceGenre(profileRequest.getPreferenceGenre2());
             user.addPreferenceGenre(profileRequest.getPreferenceGenre3());
 
-//            Music music = new Music();
-//            music.setId((long) profileRequest.getMusicId());
-//            user.setMusicId(music);
-//            musicRepository.save(music);
             return userRepository.save(user);
 
         }
@@ -69,37 +75,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Map<String, Object> getProfileInfo(String loginId) {
-        Optional<User> optionalUser = userRepository.findByLoginId(loginId);
-
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-
-            Map<String, Object> profileInfo = new HashMap<>();
-            profileInfo.put("userId", user.getUserId());
-            profileInfo.put("loginId", user.getLoginId());
-            profileInfo.put("password", user.getPassword());
-            profileInfo.put("name", user.getName());
-            profileInfo.put("nickname", user.getNickname());
-            profileInfo.put("Email", user.getEmail());
-            profileInfo.put("Introduction", user.getIntroduction());
-            profileInfo.put("Gender", user.getGender());
-            profileInfo.put("Birth", user.getBirth());
-            profileInfo.put("Role", user.getRole());
-            profileInfo.put("ProfileImg", user.getProfileImg());
-            profileInfo.put("Total Follower", user.getFollowerList().size());
-            profileInfo.put("Total Following", user.getFollowingList().size());
-
-            profileInfo.put("Music Id", user.getMusicId().getId());
-            profileInfo.put("Muisc Title", user.getMusicId().getTitle());
-            profileInfo.put("Muisc Artist", user.getMusicId().getArtist());
-            profileInfo.put("Muisc Genre", user.getMusicId().getGenre());
-            profileInfo.put("Muisc ImageUrl", user.getMusicId().getImageUrl());
-            profileInfo.put("Muisc PreviewUrl", user.getMusicId().getPreviewUrl());
-
-            return profileInfo;
-        } else {
-            return Collections.emptyMap();
-        }
+        return getStringObjectMap(loginId);
     }
 
     @Override
@@ -117,6 +93,46 @@ public class UserServiceImpl implements UserService {
             return userRepository.save(user);
         } else {
             return null;
+        }
+    }
+
+    @Override
+    public Map<String, Object> visit(String visitedUserId) {
+
+        return getStringObjectMap(visitedUserId);
+    }
+
+    private Map<String, Object> getStringObjectMap(String visitedUserId) {
+        Optional<User> optionalUser = userRepository.findByLoginId(visitedUserId);
+
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+
+            Map<String, Object> profileInfo = new HashMap<>();
+            profileInfo.put("userId", user.getUserId());
+            profileInfo.put("loginId", user.getLoginId());
+//            profileInfo.put("password", user.getPassword());
+            profileInfo.put("name", user.getName());
+            profileInfo.put("nickname", user.getNickname());
+            profileInfo.put("Email", user.getEmail());
+            profileInfo.put("Introduction", user.getIntroduction());
+            profileInfo.put("Gender", user.getGender());
+            profileInfo.put("Birth", user.getBirth());
+            profileInfo.put("Role", user.getRole());
+            profileInfo.put("ProfileImg", user.getProfileImg());
+            profileInfo.put("Total Follower", user.getFollowingList().size());
+            profileInfo.put("Total Following", user.getFollowerList().size());
+
+            profileInfo.put("Music Id", user.getMusicId().getId());
+            profileInfo.put("Music Title", user.getMusicId().getTitle());
+            profileInfo.put("Music Artist", user.getMusicId().getArtist());
+            profileInfo.put("Music Genre", user.getMusicId().getGenre());
+            profileInfo.put("Music ImageUrl", user.getMusicId().getImageUrl());
+            profileInfo.put("Music PreviewUrl", user.getMusicId().getPreviewUrl());
+
+            return profileInfo;
+        } else {
+            return Collections.emptyMap();
         }
     }
 }
