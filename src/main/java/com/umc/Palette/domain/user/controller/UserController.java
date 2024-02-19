@@ -32,8 +32,6 @@ public class UserController {
         for (Map.Entry<String, Object> entry : profileInfo.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
-
-
         return BaseResponse.<Object>builder()
                 .code(2005)
                 .isSuccess(true)
@@ -65,15 +63,31 @@ public class UserController {
 
 
 
-    @PostMapping("/profile/image/upload")
-    public BaseResponse<Object> uploadFile(@RequestParam("file")MultipartFile file) throws IOException {
+    @PostMapping("/profile/{loginId}/image/upload")
+    public BaseResponse<Object> uploadFile(@RequestParam("file")MultipartFile file, @PathVariable("loginId")String loginId) throws IOException {
         String url = fileUploadService.uploadFile(file);
+        userService.saveUploadImg(url, loginId);
         return BaseResponse.<Object>builder()
                 .code(4001)
                 .message("이미지가 업로드 되었습니다")
                 .data(url)
                 .build();
     }
+
+    @GetMapping("/{loginId}/visit/{visitedUserId}")
+    public BaseResponse<Object> visitToOther(@PathVariable("loginId")String loginId, @PathVariable("visitedUserId")String visitedUserId){
+        Map<String, Object> visitedUserProfileInfo = userService.visit(visitedUserId);
+        for (Map.Entry<String, Object> entry : visitedUserProfileInfo.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
+        return BaseResponse.<Object>builder()
+                .code(4001)
+                .message("상대방의 프로필을 조회했습니다")
+                .data(visitedUserProfileInfo)
+                .build();
+    }
+
+
 
 
 }
