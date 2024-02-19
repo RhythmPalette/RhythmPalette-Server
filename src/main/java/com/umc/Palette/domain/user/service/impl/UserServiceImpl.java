@@ -15,6 +15,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -64,5 +67,56 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    @Override
+    public Map<String, Object> getProfileInfo(String loginId) {
+        Optional<User> optionalUser = userRepository.findByLoginId(loginId);
 
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+
+            Map<String, Object> profileInfo = new HashMap<>();
+            profileInfo.put("userId", user.getUserId());
+            profileInfo.put("loginId", user.getLoginId());
+            profileInfo.put("password", user.getPassword());
+            profileInfo.put("name", user.getName());
+            profileInfo.put("nickname", user.getNickname());
+            profileInfo.put("Email", user.getEmail());
+            profileInfo.put("Introduction", user.getIntroduction());
+            profileInfo.put("Gender", user.getGender());
+            profileInfo.put("Birth", user.getBirth());
+            profileInfo.put("Role", user.getRole());
+            profileInfo.put("ProfileImg", user.getProfileImg());
+            profileInfo.put("Total Follower", user.getFollowerList().size());
+            profileInfo.put("Total Following", user.getFollowingList().size());
+
+            profileInfo.put("Music Id", user.getMusicId().getId());
+            profileInfo.put("Muisc Title", user.getMusicId().getTitle());
+            profileInfo.put("Muisc Artist", user.getMusicId().getArtist());
+            profileInfo.put("Muisc Genre", user.getMusicId().getGenre());
+            profileInfo.put("Muisc ImageUrl", user.getMusicId().getImageUrl());
+            profileInfo.put("Muisc PreviewUrl", user.getMusicId().getPreviewUrl());
+
+            return profileInfo;
+        } else {
+            return Collections.emptyMap();
+        }
+    }
+
+    @Override
+    public User profileMusicSave(Music music , String loginId) {
+
+        Optional<User> optionalUser = userRepository.findByLoginId(loginId);
+
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            user.setMusicId(music);
+
+            System.out.println(music.getTitle());
+
+
+            return userRepository.save(user);
+        } else {
+            return null;
+        }
+    }
 }

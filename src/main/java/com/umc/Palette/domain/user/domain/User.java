@@ -76,7 +76,7 @@ public class User extends BaseTimeEntity implements UserDetails {
     @JsonIgnore
     private List<PreferenceGenre> preferenceGenreList= new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "music_id")
     private Music musicId;
 
@@ -98,6 +98,7 @@ public class User extends BaseTimeEntity implements UserDetails {
 
 
     public User(){}
+
 
     public void addPreferenceGenre(int preferenceGenre) {
         PreferenceGenre newPreference = new PreferenceGenre();
