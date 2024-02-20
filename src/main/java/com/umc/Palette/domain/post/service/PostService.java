@@ -35,44 +35,49 @@ public class PostService {
     private final EmotionRepository emotionRepository;
     private final UserRepository userRepository;
 
-    public PostResponse.postDetail addPost(PostRequest.AddDTO addDTO, User user){
+    public PostResponse.postDetail addPost(PostRequest.AddDTO addDTO, Long userId){
         Emotion emotion = emotionRepository.findById(addDTO.getEmotionId()).orElseThrow();
+        User user = userRepository.findById(userId).orElseThrow();
         Post post = postRepository.save(addDTO.toEntity(user, emotion));
         return PostResponse.postDetail.of(post, user);
     }
 
     //게시글 상세 조회
-    public PostResponse.postDetail getPostDetail(Long postId , User user){
+    public PostResponse.postDetail getPostDetail(Long postId , Long userId){
         Post post = postRepository.findById(postId).orElseThrow();
+        User user = userRepository.findById(userId).orElseThrow();
 
         return PostResponse.postDetail.of(post, user);
     }
 
     //비로그인 사용자의 모든 게시글 조회
-    public SliceResponse getPostList(User user, Pageable pageable){
+    public SliceResponse getPostList(Long userId, Pageable pageable){
 
         Slice<Post> postList = postRepository.findAllBy(pageable);
+        User user = userRepository.findById(userId).orElseThrow();
         Slice<PostResponse.postDetail> postDtoList = postList.map(post -> PostResponse.postDetail.of(post, user));
         return new SliceResponse<>(postDtoList);
     }
 
     //로그인 사용자의 팔로우한 사용자 게시글 조회
-    public SliceResponse getPostListWithFollow(User user, Pageable pageable){
-        Long userId = user.getUserId();
+    public SliceResponse getPostListWithFollow(Long userId, Pageable pageable){
+        User user = userRepository.findById(userId).orElseThrow();
         Slice<Post> postList = postRepository.findAllPostByFollow(userId, pageable);
         Slice<PostResponse.postDetail> postDtoList = postList.map(post -> PostResponse.postDetail.of(post, user));
         return new SliceResponse<>(postDtoList);
     }
 
     //장르로 모든 게시글 조회
-    public SliceResponse getPostListWithGenre(String genre, User user, Pageable pageable){
+    public SliceResponse getPostListWithGenre(String genre, Long userId, Pageable pageable){
+        User user = userRepository.findById(userId).orElseThrow();
         Slice<Post> postList = postRepository.findAllPostByGenre(genre, pageable);
         Slice<PostResponse.postDetail> postDtoList = postList.map(post -> PostResponse.postDetail.of(post, user));
         return new SliceResponse<>(postDtoList);
     }
 
     //감정으로 모든 게시글 조회
-    public SliceResponse getPostListWithEmotion(Long emotionId, User user, Pageable pageable){
+    public SliceResponse getPostListWithEmotion(Long emotionId, Long userId, Pageable pageable){
+        User user = userRepository.findById(userId).orElseThrow();
         Slice<Post> postList = postRepository.findAllPostByEmotion(emotionId, pageable);
         Slice<PostResponse.postDetail> postDtoList = postList.map(post -> PostResponse.postDetail.of(post, user));
         return new SliceResponse<>(postDtoList);
@@ -81,14 +86,16 @@ public class PostService {
 
 
     //월을 입력받고 해당 월에 본인이 작성한 게시글 조회
-    public List<PostResponse.postDetail> getPostCalendar(int month, User user){
+    public List<PostResponse.postDetail> getPostCalendar(int month, Long userId){
+        User user = userRepository.findById(userId).orElseThrow();
         List<Post> postListByMonth = postRepository.findAllByMonth(month);
         return PostResponse.postDetail.of(postListByMonth,user);
     }
 
     //본인이 작성한 게시글 최신순 조회
-    public SliceResponse getPostMyPage(User user, Pageable pageable){
-        Slice<Post> postListMyPage = postRepository.findPostByUserOrderByCreatedAtDesc(user, pageable);
+    public SliceResponse getPostMyPage(Long userId, Pageable pageable){
+        User user = userRepository.findById(userId).orElseThrow();
+        Slice<Post> postListMyPage = postRepository.findPostByUserOrderByCreatedAtDesc(userId, pageable);
         Slice<PostResponse.postDetail> postDtoList = postListMyPage.map(post -> PostResponse.postDetail.of(post, user));
         return new SliceResponse<>(postDtoList);
     }

@@ -135,4 +135,9 @@ public class UserServiceImpl implements UserService {
             return Collections.emptyMap();
         }
     }
+
+    public User getUser(Long userId){
+        User user = userRepository.findById(userId).orElseThrow();
+        return user;
+    }
 }
