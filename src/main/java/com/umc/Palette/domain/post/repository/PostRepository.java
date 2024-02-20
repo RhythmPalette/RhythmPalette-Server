@@ -22,8 +22,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("SELECT p FROM Post p WHERE MONTH(p.createdAt) = :month")
     List<Post> findAllByMonth(@Param("month") int month);
 
-    @Query("select p from Post p where p.user = :user order by p.createdAt desc ")
-    Slice<Post> findPostByUserOrderByCreatedAtDesc(@Param("user")User user, Pageable pageable);
+    @Query("select p from Post p where p.user.userId = :userId order by p.createdAt desc ")
+    Slice<Post> findPostByUserOrderByCreatedAtDesc(@Param("userId")Long userId, Pageable pageable);
 
     Slice<Post> findAllBy(Pageable pageable);
 
