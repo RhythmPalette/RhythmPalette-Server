@@ -14,7 +14,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/posts/{postId}/comments/{commentId}")
+@RequestMapping("api/v1/posts/{postId}/comments/{commentId}")
 public class CommentLikeRestController {
 
     private final UserCommentLikeService userCommentLikeService;
