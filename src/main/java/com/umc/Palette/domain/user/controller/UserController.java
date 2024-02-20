@@ -86,8 +86,5 @@ public class UserController {
                 .data(visitedUserProfileInfo)
                 .build();
     }
-
-
-
-
+    
 }
