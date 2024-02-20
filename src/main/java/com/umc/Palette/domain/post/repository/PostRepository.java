@@ -41,6 +41,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     Slice<Post> findAllPostByFollow(@Param("userId") Long userId, Pageable pageable);
 
 
-    @Query("select p from Post p where p.user.userId =:userId")
-    Slice<Post> findAllByUserId(@Param("userId")Long userId, Pageable pageable);
+    @Query("select p from Post p where p.user.userId =:userId order by p.createdAt desc ")
+    List<Post> findAllByUserId(@Param("userId")Long userId);
 }
