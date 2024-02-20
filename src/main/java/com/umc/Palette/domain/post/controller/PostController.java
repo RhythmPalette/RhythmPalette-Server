@@ -64,7 +64,7 @@ public class PostController {
     }
 
     @GetMapping
-    public BaseResponse<Object> getPostList(@RequestBody Long userId, @PageableDefault(size = 10) Pageable pageable){
+    public BaseResponse<Object> getPostList(@RequestParam(name = "userId") Long userId, @PageableDefault(size = 10) Pageable pageable){
 
         SliceResponse postDetailList;
         User user = userService.getUser(userId);
@@ -82,8 +82,8 @@ public class PostController {
                 .message("게시글 리스트가 조회되었습니다")
                 .build();
     }
-    @GetMapping("/search/{genre}")
-    public BaseResponse<Object> getPostListWithGenre(@PathVariable(name = "genre")String genre, @PageableDefault(size = 10) Pageable pageable, @RequestBody Long userId){
+    @GetMapping("/search/genre/{genre}")
+    public BaseResponse<Object> getPostListWithGenre(@PathVariable(name = "genre")String genre, @PageableDefault(size = 10) Pageable pageable, @RequestParam(name = "userId") Long userId){
         SliceResponse postDetailList = postService.getPostListWithGenre(genre,userId, pageable);
         return BaseResponse.builder()
                 .code(200)
@@ -92,8 +92,8 @@ public class PostController {
                 .message("장르별 게시글 리스트가 조회되었습니다")
                 .build();
     }
-    @GetMapping("/search/{emotionId}")
-    public BaseResponse<Object> getPostListWithEmotion(@PathVariable(name = "emotionId")Long emotionId, @PageableDefault(size = 10) Pageable pageable, @RequestBody Long userId){
+    @GetMapping("/search/emotion/{emotionId}")
+    public BaseResponse<Object> getPostListWithEmotion(@PathVariable(name = "emotionId")Long emotionId, @PageableDefault(size = 10) Pageable pageable, @RequestParam(name = "userId") Long userId){
         SliceResponse postDetailList = postService.getPostListWithEmotion(emotionId,userId, pageable);
         return BaseResponse.builder()
                 .code(200)
@@ -106,7 +106,7 @@ public class PostController {
 
 
     @GetMapping("/calender/{month}")
-    public BaseResponse<Object> getPostCalender(@PathVariable (name = "month") int month,@RequestBody Long userId){
+    public BaseResponse<Object> getPostCalender(@PathVariable (name = "month") int month,@RequestParam(name = "userId") Long userId){
         List<PostResponse.postDetail> postDetailListByMonth = postService.getPostCalendar(month, userId);
         return BaseResponse.builder()
                 .code(200)
@@ -117,7 +117,7 @@ public class PostController {
     }
 
     @GetMapping("/mypage")
-    public BaseResponse<Object> getPostMyPage(@RequestBody Long userId, @PageableDefault(size = 10) Pageable pageable){
+    public BaseResponse<Object> getPostMyPage(@RequestParam(name = "userId") Long userId, @PageableDefault(size = 10) Pageable pageable){
         SliceResponse postListMyPage = postService.getPostMyPage(userId, pageable);
         return BaseResponse.builder()
                 .code(200)
@@ -160,7 +160,7 @@ public class PostController {
     }
 
     @PostMapping("/{postId}/like")
-    public BaseResponse<Object> addPostLike(@PathVariable(name = "postId")Long postId, @RequestBody Long userId){
+    public BaseResponse<Object> addPostLike(@PathVariable(name = "postId")Long postId, @RequestParam(name = "userId") Long userId){
         postLikeService.addPostLike(postId,userId);
         return BaseResponse.builder()
                 .code(200)
@@ -168,7 +168,7 @@ public class PostController {
                 .build();
     }
     @DeleteMapping("/{postId}/like")
-    public BaseResponse<Object> deletePostLike(@PathVariable(name = "postId")Long postId, @RequestBody Long userId){
+    public BaseResponse<Object> deletePostLike(@PathVariable(name = "postId")Long postId, @RequestParam(name = "userId") Long userId){
         postLikeService.deletePostLike(postId,userId);
         return BaseResponse.builder()
                 .code(200)
