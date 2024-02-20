@@ -33,6 +33,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final CommentRepository commentRepository;
     private final EmotionRepository emotionRepository;
+    private final UserRepository userRepository;
 
     public PostResponse.postDetail addPost(PostRequest.AddDTO addDTO, User user){
         Emotion emotion = emotionRepository.findById(addDTO.getEmotionId()).orElseThrow();
@@ -114,6 +115,11 @@ public class PostService {
         return post.getPostImg();
     }
 
+    public List<PostResponse.postDetail> getAllPostWhitUserId(Long userId){
+        List<Post> postList = postRepository.findAllByUserId(userId);
+        User user = userRepository.findById(userId).orElseThrow();
+        return PostResponse.postDetail.of(postList,user);
+    }
 
 
 }
