@@ -19,8 +19,8 @@ public class CommentLikeRestController {
 
     private final UserCommentLikeService userCommentLikeService;
     @GetMapping("/liked-people")
-    public BaseResponse<List<UserCommentLikeDto>> getCommentLike(@LoggedInUser User user, @PathVariable(name = "commentId") Long commentId){
-        List<UserCommentLikeDto> users = userCommentLikeService.commentLikes(user, commentId);
+    public BaseResponse<List<UserCommentLikeDto>> getCommentLike(@PathVariable(name = "commentId") Long commentId){
+        List<UserCommentLikeDto> users = userCommentLikeService.commentLikes(commentId);
         return BaseResponse.<List<UserCommentLikeDto>>builder()
                 .data(users)
                 .isSuccess(true)
@@ -30,8 +30,8 @@ public class CommentLikeRestController {
     }
 
     @PostMapping("/likes")
-    public BaseResponse<Boolean> postCommentLike(@LoggedInUser User user, @PathVariable(name = "commentId") Long commentId){
-        Boolean commentLikeAdd = userCommentLikeService.commentLikeAdd(user, commentId);
+    public BaseResponse<Boolean> postCommentLike(@RequestBody Long userId, @PathVariable(name = "commentId") Long commentId){
+        Boolean commentLikeAdd = userCommentLikeService.commentLikeAdd(userId, commentId);
         if(commentLikeAdd == true){
             return BaseResponse.<Boolean>builder()
                     .data(commentLikeAdd)
@@ -52,9 +52,9 @@ public class CommentLikeRestController {
     }
 
     @DeleteMapping("/likes")
-    public BaseResponse<Boolean> deleteCommentLike(@LoggedInUser User user, @PathVariable(name = "commentId") Long commentId){
+    public BaseResponse<Boolean> deleteCommentLike(@RequestBody Long userId, @PathVariable(name = "commentId") Long commentId){
 
-        Boolean commentLikeCancel = userCommentLikeService.commentLikeCancel(user, commentId);
+        Boolean commentLikeCancel = userCommentLikeService.commentLikeCancel(userId, commentId);
         if(commentLikeCancel==true){
             return BaseResponse.<Boolean>builder()
                     .data(commentLikeCancel)
