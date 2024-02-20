@@ -23,16 +23,16 @@ public class CustomExceptionHandler {
     }
 
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<BaseResponse<Object>> handleGeneralException(Exception e) {
-        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
-        BaseResponse<Object> response = BaseResponse.builder()
-                .isSuccess(false) // HttpStatus에는 isSuccess() 메서드가 없으므로 직접 설정
-                .code(status.value()) // HttpStatus의 상태 코드
-                .message(status.getReasonPhrase()) // HttpStatus의 이유 구절
-                .build();
-        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<BaseResponse<Object>> handleGeneralException(Exception e) {
+//        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+//        BaseResponse<Object> response = BaseResponse.builder()
+//                .isSuccess(false) // HttpStatus에는 isSuccess() 메서드가 없으므로 직접 설정
+//                .code(status.value()) // HttpStatus의 상태 코드
+//                .message(status.getReasonPhrase()) // HttpStatus의 이유 구절
+//                .build();
+//        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+//    }
   
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<BaseResponse<Object>> handleMethodArgumentNotValid(MethodArgumentNotValidException exception) {

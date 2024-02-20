@@ -37,7 +37,6 @@ public class PostResponse {
         private LocalDateTime updatedAt;
 
         public static postDetail of(Post post, User user){
-            boolean isLiked = post.getPostLike().contains(user);
             return postDetail.builder()
                     .postId(post.getPostId())
                     .content(post.getContent())
@@ -50,7 +49,7 @@ public class PostResponse {
                     .music(post.getMusic() != null ? post.getMusic() : null)
                     .likeCount(post.getPostLike() != null ? post.getPostLike().size() : null)
                     .commentCount(post.getComments()!= null ? post.getComments().size() : null)
-                    .isLiked(isLiked)
+                    .isLiked(post.getPostLike() != null ? post.getPostLike().contains(user) : false)
                     .createdAt(post.getCreatedAt())
                     .updatedAt(post.getUpdateAt())
                     .build();
