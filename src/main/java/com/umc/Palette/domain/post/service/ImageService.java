@@ -68,10 +68,12 @@ public class ImageService {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
         InputStream inputStream = connection.getInputStream();
-        S3Object s3Object = new S3Object();
-        s3Object.setObjectContent(inputStream);
-        // ObjectKey는 S3 내에서의 이미지 파일 경로와 이름을 말합니다. (예: "images/myimage.jpg")
-        amazonS3.putObject(new PutObjectRequest(bucketName, fileName, s3Object.getObjectContent(), new ObjectMetadata()));
+
+        ObjectMetadata metadata = new ObjectMetadata();
+        metadata.setContentLength(connection.getContentLengthLong());
+
+        amazonS3.putObject(new PutObjectRequest(bucketName, fileName, inputStream, metadata));
+
         inputStream.close();
         connection.disconnect();
 
