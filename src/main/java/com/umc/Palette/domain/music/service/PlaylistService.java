@@ -10,6 +10,7 @@ import com.umc.Palette.domain.music.repository.PlaylistRepository;
 import com.umc.Palette.domain.post.domain.Post;
 import com.umc.Palette.domain.post.repository.PostRepository;
 import com.umc.Palette.domain.user.domain.User;
+import com.umc.Palette.domain.user.repository.UserRepository;
 import com.umc.Palette.global.exception.BaseException;
 import com.umc.Palette.global.exception.BaseResponseStatus;
 import lombok.RequiredArgsConstructor;
@@ -24,10 +25,11 @@ import java.util.List;
 public class PlaylistService {
     private final PlaylistRepository playlistRepository;
     private final PostRepository postRepository;
-
+    private final UserRepository userRepository;
 
     @Transactional
-    public PlaylistCreateResponse create(User user, PlaylistCreateRequest request) {
+    public PlaylistCreateResponse create(Long userId, PlaylistCreateRequest request) {
+        User user = userRepository.findById(userId).orElseThrow();
         Playlist playlist = request.toEntity(user);
         playlistRepository.save(playlist);
         return PlaylistCreateResponse.builder()
