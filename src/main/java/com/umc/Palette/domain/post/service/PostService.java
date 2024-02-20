@@ -6,6 +6,7 @@ import com.umc.Palette.domain.comment.repository.CommentRepository;
 import com.umc.Palette.domain.emotion.domain.Emotion;
 import com.umc.Palette.domain.emotion.repository.EmotionRepository;
 import com.umc.Palette.domain.follow.domain.Follow;
+import com.umc.Palette.domain.music.repository.MusicRepository;
 import com.umc.Palette.domain.post.domain.Post;
 import com.umc.Palette.domain.post.dto.PostRequest;
 import com.umc.Palette.domain.post.dto.PostResponse;
@@ -34,10 +35,12 @@ public class PostService {
     private final CommentRepository commentRepository;
     private final EmotionRepository emotionRepository;
     private final UserRepository userRepository;
+    private final MusicRepository musicRepository;
 
     public PostResponse.postDetail addPost(PostRequest.AddDTO addDTO){
         Emotion emotion = emotionRepository.findById(addDTO.getEmotionId()).orElseThrow();
         User user = userRepository.findById(addDTO.getUserId()).orElseThrow();
+        musicRepository.save(addDTO.getMusicRequest().toEntity());
         Post post = postRepository.save(addDTO.toEntity(user, emotion));
         return PostResponse.postDetail.of(post, user);
     }

@@ -5,6 +5,7 @@ import com.umc.Palette.domain.base_time.BaseTimeEntity;
 import com.umc.Palette.domain.emotion.domain.Emotion;
 import com.umc.Palette.domain.music.domain.Music;
 import com.umc.Palette.domain.music.domain.Playlist;
+import com.umc.Palette.domain.music.dto.request.MusicRequest;
 import com.umc.Palette.domain.user.domain.User;
 import com.umc.Palette.global.exception.BaseException;
 import com.umc.Palette.global.exception.BaseResponseStatus;
@@ -38,7 +39,7 @@ public class Post extends BaseTimeEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "music_id")
     private Music music;
 
@@ -95,5 +96,9 @@ public class Post extends BaseTimeEntity {
         else {
             this.playlist = null;
         }
+    }
+
+    public void setMusic(MusicRequest musicRequest){
+        this.music = musicRequest.toEntity();
     }
 }

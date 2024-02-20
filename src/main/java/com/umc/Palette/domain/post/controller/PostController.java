@@ -1,5 +1,6 @@
 package com.umc.Palette.domain.post.controller;
 
+import com.umc.Palette.domain.music.domain.Music;
 import com.umc.Palette.domain.music.dto.request.MusicRequest;
 import com.umc.Palette.domain.post.service.ImageService;
 import com.umc.Palette.domain.post.service.PostService;
