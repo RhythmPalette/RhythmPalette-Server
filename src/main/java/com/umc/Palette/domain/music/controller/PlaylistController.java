@@ -23,10 +23,10 @@ public class PlaylistController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     BaseResponse<PlaylistCreateResponse> create(
-            @LoggedInUser User user,
+            @RequestParam(name = "userId") Long userId,
             @Valid @RequestBody PlaylistCreateRequest request
     ) {
-        PlaylistCreateResponse response = playlistService.create(user, request);
+        PlaylistCreateResponse response = playlistService.create(userId, request);
         return BaseResponse.<PlaylistCreateResponse>builder()
                 .isSuccess(true)
                 .message("플레이리스트가 정상적으로 생성되었습니다.")
