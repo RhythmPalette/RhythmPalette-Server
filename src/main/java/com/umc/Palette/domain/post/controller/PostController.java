@@ -41,8 +41,8 @@ public class PostController {
     private final UserServiceImpl userService;
 
     @PostMapping
-    public BaseResponse<Object> addPost(@RequestBody PostRequest.AddDTO addDTO, @RequestBody Long userId){
-        PostResponse.postDetail post = postService.addPost(addDTO,userId);
+    public BaseResponse<Object> addPost(@RequestBody PostRequest.AddDTO addDTO){
+        PostResponse.postDetail post = postService.addPost(addDTO);
         return BaseResponse.builder()
                 .code(200)
                 .isSuccess(true)

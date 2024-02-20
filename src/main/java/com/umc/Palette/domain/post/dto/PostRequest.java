@@ -21,6 +21,7 @@ public class PostRequest {
         private String situation3;
         private Long emotionId;
         private MusicRequest musicRequest;
+        private Long userId;
         public Post toEntity(User user, Emotion emotion){
             return Post.builder()
                     .user(user)

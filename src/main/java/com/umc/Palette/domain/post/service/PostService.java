@@ -35,9 +35,9 @@ public class PostService {
     private final EmotionRepository emotionRepository;
     private final UserRepository userRepository;
 
-    public PostResponse.postDetail addPost(PostRequest.AddDTO addDTO, Long userId){
+    public PostResponse.postDetail addPost(PostRequest.AddDTO addDTO){
         Emotion emotion = emotionRepository.findById(addDTO.getEmotionId()).orElseThrow();
-        User user = userRepository.findById(userId).orElseThrow();
+        User user = userRepository.findById(addDTO.getUserId()).orElseThrow();
         Post post = postRepository.save(addDTO.toEntity(user, emotion));
         return PostResponse.postDetail.of(post, user);
     }
